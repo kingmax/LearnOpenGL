@@ -1,5 +1,14 @@
 Debug
 Release
+x64/*
+vs
+*.vs
+/.vs/*
+
+*.tlog
+*.db
+*.ilk
+*.pdb
 
 # Prerequisites
 *.d
