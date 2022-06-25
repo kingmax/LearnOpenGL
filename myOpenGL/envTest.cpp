@@ -2,9 +2,11 @@
 #include <glfw3.h>
 
 #include <iostream>
+using namespace std;
 
 void framebuffer_size_callback(GLFWwindow* win, int w, int h)
 {
+	cout << "size changed: " << w << " x " << h << endl;
 	glViewport(0, 0, w, h);
 }
 
@@ -27,7 +29,7 @@ int main()
 	GLFWwindow* win = glfwCreateWindow(800, 600, u8"学习OpenGL", NULL, NULL);
 	if (win == NULL)
 	{
-		std::cout << "失败创建 GLFW window" << std::endl;
+		cout << "失败创建 GLFW window" << endl;
 		glfwTerminate();
 		return -1;
 	}
@@ -35,7 +37,7 @@ int main()
 
 	if (!gladLoadGLLoader((GLADloadproc)glfwGetProcAddress))
 	{
-		std::cout << "Failed to initialize GLAD" << std::endl;
+		cout << "Failed to initialize GLAD" << endl;
 		return -1;
 	}
 
@@ -47,6 +49,8 @@ int main()
 		processInput(win);
 
 		// render..
+		glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
+		glClear(GL_COLOR_BUFFER_BIT);
 
 		glfwSwapBuffers(win);
 		glfwPollEvents();
