@@ -118,8 +118,8 @@
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='myOpenGL_d_r|x64'">
     <LinkIncremental>true</LinkIncremental>
-    <IncludePath>D:\git\learnOpenGL\Include;$(IncludePath)</IncludePath>
-    <LibraryPath>D:\git\learnOpenGL\Lib;$(LibraryPath)</LibraryPath>
+    <IncludePath>E:\git\learnOpenGL\Include;$(IncludePath)</IncludePath>
+    <LibraryPath>E:\git\learnOpenGL\Lib;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <LinkIncremental>false</LinkIncremental>

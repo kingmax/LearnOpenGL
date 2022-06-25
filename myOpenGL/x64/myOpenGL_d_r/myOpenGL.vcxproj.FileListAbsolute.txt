@@ -1,1 +1,2 @@
 D:\git\learnOpenGL\myOpenGL\x64\myOpenGL_d_r\myOpenGL.exe
+E:\git\learnOpenGL\myOpenGL\x64\myOpenGL_d_r\myOpenGL.exe
