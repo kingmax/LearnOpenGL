@@ -1,6 +1,9 @@
+#pragma warning(disable: 4098)
+
 #include <glad/glad.h>
 #include <glfw3.h>
 
+#include <string>
 #include <iostream>
 using namespace std;
 
@@ -14,7 +17,7 @@ float vertices[] = {
 	0.0f, 0.5f, 0.0f
 };
 
-const char* vs_file = "first.vs";
+const string vsShaderFile = "first.vs";
 
 
 void framebuffer_size_callback(GLFWwindow* win, int w, int h)
@@ -64,14 +67,21 @@ int main()
 	glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STATIC_DRAW);
 
 	// read & compile vertex shader
-	string _vsSource = R""(#version 330 core
+	/*string _vsSource = R"(#version 330 core
 layout (location = 0) in vec3 pos;
 
 void main()
 {
 	gl_Position = vec4(pos.x, pos.y, pos.z, 1.0);
-})"";
+})";
 	const char* vsSource = _vsSource.c_str();
+	cout << vsSource << endl;*/
+
+	//const string _vsSource = readVS("first.vs");
+	string _vsSource;
+	readVS(vsShaderFile, _vsSource);
+	const char* vsSource = _vsSource.c_str();
+	cout << vsSource << endl;
 
 	unsigned int vertexShader;
 	vertexShader = glCreateShader(GL_VERTEX_SHADER);

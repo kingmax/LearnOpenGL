@@ -1,12 +1,6 @@
 #include "shader.h"
 
-#include <iostream>
-#include <fstream>
-#include <sstream>
-#include <streambuf>
-
-using namespace std;
-
+#pragma region ERROR Function
 const char* readVS(const char* vsFilename)
 {
 	ifstream inFile(vsFilename);
@@ -27,4 +21,46 @@ const char* readVS(const char* vsFilename)
 	inFile.close();
 	cout << ss.str() << endl;
 	return ss.str().c_str();
+}
+
+const string readVS(const string vsFilename)
+{
+	ifstream inFile(vsFilename);
+	if (!inFile)
+	{
+		cerr << "Unable to open file" << endl;
+		return "";
+	}
+
+	stringstream ss;
+	string line;
+	while (getline(inFile, line))
+	{
+		ss << line << "\n";
+	}
+	inFile.close();
+	line = ss.str();
+	//cout << line << endl;
+	return line;
+}
+#pragma endregion ERROR Function
+
+void readVS(const string vsFilename, string& outString)
+{
+	ifstream inFile(vsFilename);
+	if (!inFile)
+	{
+		cerr << "Unable to open file" << endl;
+		return;
+	}
+
+	stringstream ss;
+	string line;
+	while (getline(inFile, line))
+	{
+		ss << line << "\n";
+	}
+	inFile.close();
+	
+	outString = ss.str();
 }
