@@ -18,6 +18,7 @@ float vertices[] = {
 };
 
 const string vsShaderFile = "first.vs";
+const string psShaderFile = "first.ps";
 
 
 void framebuffer_size_callback(GLFWwindow* win, int w, int h)
@@ -79,7 +80,7 @@ void main()
 
 	//const string _vsSource = readVS("first.vs");
 	string _vsSource;
-	readVS(vsShaderFile, _vsSource);
+	readShaderFile(vsShaderFile, _vsSource);
 	const char* vsSource = _vsSource.c_str();
 	cout << vsSource << endl;
 
@@ -94,7 +95,23 @@ void main()
 	if (!success)
 	{
 		glGetShaderInfoLog(vertexShader, 512, NULL, infoLog);
-		cout << "ERROR::VS Shader compile failed\n" << infoLog << endl;
+		cout << "ERROR:: VS Shader compile failed\n" << infoLog << endl;
+	}
+
+	// fragment shader
+	unsigned int fragmentShader;
+	fragmentShader = glCreateShader(GL_FRAGMENT_SHADER);
+	string _psSource;
+	readShaderFile(psShaderFile, _psSource);
+	const char* psSource = _psSource.c_str();
+	cout << psSource << endl;
+	glShaderSource(fragmentShader, 1, &psSource, NULL);
+	glCompileShader(fragmentShader);
+	glGetShaderiv(fragmentShader, GL_COMPILE_STATUS, &success);
+	if (!success)
+	{
+		glGetShaderInfoLog(fragmentShader, 512, NULL, infoLog);
+		cout << "ERROR: PS Shader compile failed\n" << infoLog << endl;
 	}
 
 	while (!glfwWindowShouldClose(win))

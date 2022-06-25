@@ -45,7 +45,7 @@ const string readVS(const string vsFilename)
 }
 #pragma endregion ERROR Function
 
-void readVS(const string vsFilename, string& outString)
+void readShaderFile(const string vsFilename, string& outString)
 {
 	ifstream inFile(vsFilename);
 	if (!inFile)

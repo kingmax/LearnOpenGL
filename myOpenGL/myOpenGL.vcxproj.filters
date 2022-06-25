@@ -32,6 +32,9 @@
     <None Include="first.vs">
       <Filter>shader</Filter>
     </None>
+    <None Include="first.ps">
+      <Filter>shader</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="shader.h">

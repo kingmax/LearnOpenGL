@@ -32,6 +32,7 @@
     <ClCompile Include="shader.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="first.ps" />
     <None Include="first.vs" />
   </ItemGroup>
   <ItemGroup>
