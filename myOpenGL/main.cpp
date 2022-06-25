@@ -61,6 +61,12 @@ int main()
 	glViewport(0, 0, 800, 600);
 	glfwSetFramebufferSizeCallback(win, framebuffer_size_callback);
 
+	// using Vertex Array Object (VAO) (存放VBO的数组，方便管理大量物体顶点配置数据)
+	// 必须放在VBO前面
+	unsigned int VAO;
+	glGenVertexArrays(1, &VAO);
+	glBindVertexArray(VAO);
+
 	//读入顶点数据，选产生一个VBO对象 (Vertex Buffer Object), 然后绑定到GL_ARRAY_BUFFER, 最后将实际顶点数据复制到绑定的Buffer
 	unsigned int VBO;
 	glGenBuffers(1, &VBO);
@@ -114,6 +120,29 @@ void main()
 		cout << "ERROR: PS Shader compile failed\n" << infoLog << endl;
 	}
 
+	// link vs and ps to ShaderProgramObject
+	unsigned int shaderProgram;
+	shaderProgram = glCreateProgram();
+	glAttachShader(shaderProgram, vertexShader);
+	glAttachShader(shaderProgram, fragmentShader);
+	glLinkProgram(shaderProgram);
+	// check 
+	glGetProgramiv(shaderProgram, GL_LINK_STATUS, &success);
+	if (!success)
+	{
+		glGetProgramInfoLog(shaderProgram, 512, NULL, infoLog);
+		cout << "ERROR: Link Shader Program Object failed\n" << infoLog << endl;
+	}
+	// clear
+	glDeleteShader(vertexShader);
+	glDeleteShader(fragmentShader);
+
+	// how to resolve the vertex data, 设置顶点属性指针
+	// first param is layout(location =0) in vertexShader defined
+	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(float), (void*)0);
+	glEnableVertexAttribArray(0);
+
+	// 渲染循环
 	while (!glfwWindowShouldClose(win))
 	{
 		processInput(win);
@@ -121,6 +150,13 @@ void main()
 		// render..
 		glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
 		glClear(GL_COLOR_BUFFER_BIT);
+
+		// use ShaderProgramObject
+		glUseProgram(shaderProgram);
+		// 绘制数据 (通过VAO间接绑定了VBO, 而VBO已由顶点属性配置)
+		glBindVertexArray(VAO);
+		// 使用当前激活的shader绘制图元
+		glDrawArrays(GL_TRIANGLES, 0, 3);
 
 		glfwSwapBuffers(win);
 		glfwPollEvents();
