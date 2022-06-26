@@ -25,8 +25,8 @@ unsigned int VAO;
 unsigned int VBO;
 
 // Shader File
-const string vsShaderFile = "first.vs";
-const string psShaderFile = "first.ps";
+const string vsShaderFile = "01.vert";
+const string psShaderFile = "01.frag";
 
 // Element Buffer Object (EBO)
 float rectangle_vertices[] = {

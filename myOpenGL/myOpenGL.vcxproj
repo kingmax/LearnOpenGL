@@ -33,8 +33,8 @@
     <ClCompile Include="util.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="first.ps" />
-    <None Include="first.vs" />
+    <None Include="01.frag" />
+    <None Include="01.vert" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Include\glad\glad.h" />

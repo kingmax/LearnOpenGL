@@ -32,10 +32,10 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <None Include="first.vs">
+    <None Include="01.vert">
       <Filter>shader</Filter>
     </None>
-    <None Include="first.ps">
+    <None Include="01.frag">
       <Filter>shader</Filter>
     </None>
   </ItemGroup>
