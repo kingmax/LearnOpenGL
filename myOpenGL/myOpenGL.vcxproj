@@ -46,6 +46,7 @@
     <ClInclude Include="..\Include\glfw3native.h" />
     <ClInclude Include="..\Include\KHR\khrplatform.h" />
     <ClInclude Include="shader.h" />
+    <ClInclude Include="shaderClass.h" />
     <ClInclude Include="util.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">

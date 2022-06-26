@@ -9,6 +9,7 @@ using namespace std;
 
 #include "shader.h"
 #include "util.h"
+#include "shaderClass.h"
 
 #pragma region Data
 // Vertex Data
@@ -67,9 +68,14 @@ void processInput(GLFWwindow* win)
 int main()
 {
 	glfwInit();
-	glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
-	glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
+	glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 4);
+	glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 6);
 	glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
+
+	// transparent 透明 (shader::03.frag::myAlphaFromCPU)
+	glfwWindowHint(GLFW_TRANSPARENT_FRAMEBUFFER, GL_TRUE);
+	// 无边框
+	//glfwWindowHint(GLFW_DECORATED, GL_FALSE);
 
 	GLFWwindow* win = glfwCreateWindow(800, 600, u8"学习OpenGL", NULL, NULL);
 	if (win == NULL)
@@ -189,6 +195,9 @@ void main()
 	// 线框模式
 	// glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
 
+	// using shaderClass
+	Shader myShader("03.vert", "03.frag");
+
 	// 渲染循环
 	while (!glfwWindowShouldClose(win))
 	{
@@ -207,13 +216,18 @@ void main()
 		//glDrawArrays(GL_TRIANGLES, 0, 3);
 		#pragma endregion draw one triangle
 
+		myShader.use();
+		myShader.setFloat("myAlphaFromCPU", 0.8f);
+
 		// using EBO draw Rectangle (2 triangles)
-		glUseProgram(shaderProgram);
+		//glUseProgram(shaderProgram);
 		glBindVertexArray(VAO);
 		glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
 
 		// send data to GPU shader (02.frag:: uniform vec4 ourColor)
 		//sendColor2Shader(shaderProgram, "ourColor");
+
+		
 
 		glBindVertexArray(0);
 
