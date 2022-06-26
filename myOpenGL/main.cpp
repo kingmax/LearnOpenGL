@@ -25,15 +25,16 @@ unsigned int VAO;
 unsigned int VBO;
 
 // Shader File
-const string vsShaderFile = "02.vert"; //"01.vert";
-const string psShaderFile = "02.frag"; // "01.frag";
+const string vsShaderFile = "03.vert"; // "02.vert"; //"01.vert";
+const string psShaderFile = "03.frag"; // "02.frag"; // "01.frag";
 
 // Element Buffer Object (EBO)
+// 后三列为颜色数据
 float rectangle_vertices[] = {
-	0.5f, 0.5f, 0.0f,
-	0.5f, -0.5f, 0.0f,
-	-0.5f, -0.5f, 0.0f,
-	-0.5f, 0.5f, 0.0f
+	0.5f, 0.5f, 0.0f,	1.0f, 0.0f, 0.0f,
+	0.5f, -0.5f, 0.0f,	0.0f, 1.0f, 0.0f,
+	-0.5f, -0.5f, 0.0f,	0.0f, 0.0f, 1.0f,
+	-0.5f, 0.5f, 0.0f,	0.0f, 0.0f, 0.0f
 };
 
 unsigned int rectangle_indices[] = {
@@ -178,8 +179,12 @@ void main()
 	glGenBuffers(1, &EBO);
 	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, EBO);
 	glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(rectangle_indices), rectangle_indices, GL_STATIC_DRAW);
-	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(float), (void*)0);
+	//glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(float), (void*)0);
+	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 6 * sizeof(float), (void*)0);
 	glEnableVertexAttribArray(0);
+	// 顶点数据中的颜色属性
+	glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 6 * sizeof(float), (void*)(3 * sizeof(float)));
+	glEnableVertexAttribArray(1);
 
 	// 线框模式
 	// glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
@@ -208,7 +213,7 @@ void main()
 		glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
 
 		// send data to GPU shader (02.frag:: uniform vec4 ourColor)
-		sendColor2Shader(shaderProgram, "ourColor");
+		//sendColor2Shader(shaderProgram, "ourColor");
 
 		glBindVertexArray(0);
 

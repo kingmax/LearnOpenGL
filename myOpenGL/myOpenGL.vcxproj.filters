@@ -44,6 +44,12 @@
     <None Include="02.frag">
       <Filter>shader</Filter>
     </None>
+    <None Include="03.vert">
+      <Filter>shader</Filter>
+    </None>
+    <None Include="03.frag">
+      <Filter>shader</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="shader.h">
