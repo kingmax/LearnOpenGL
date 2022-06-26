@@ -25,8 +25,8 @@ unsigned int VAO;
 unsigned int VBO;
 
 // Shader File
-const string vsShaderFile = "01.vert";
-const string psShaderFile = "01.frag";
+const string vsShaderFile = "02.vert"; //"01.vert";
+const string psShaderFile = "02.frag"; // "01.frag";
 
 // Element Buffer Object (EBO)
 float rectangle_vertices[] = {
@@ -182,7 +182,7 @@ void main()
 	glEnableVertexAttribArray(0);
 
 	// 线框模式
-	glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
+	// glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
 
 	// 渲染循环
 	while (!glfwWindowShouldClose(win))
@@ -206,6 +206,9 @@ void main()
 		glUseProgram(shaderProgram);
 		glBindVertexArray(VAO);
 		glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
+
+		// send data to GPU shader (02.frag:: uniform vec4 ourColor)
+		sendColor2Shader(shaderProgram, "ourColor");
 
 		glBindVertexArray(0);
 

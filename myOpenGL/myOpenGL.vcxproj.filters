@@ -38,6 +38,12 @@
     <None Include="01.frag">
       <Filter>shader</Filter>
     </None>
+    <None Include="02.vert">
+      <Filter>shader</Filter>
+    </None>
+    <None Include="02.frag">
+      <Filter>shader</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="shader.h">

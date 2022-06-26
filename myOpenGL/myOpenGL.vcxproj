@@ -35,6 +35,8 @@
   <ItemGroup>
     <None Include="01.frag" />
     <None Include="01.vert" />
+    <None Include="02.frag" />
+    <None Include="02.vert" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Include\glad\glad.h" />
