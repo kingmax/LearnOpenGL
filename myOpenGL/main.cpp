@@ -8,6 +8,7 @@
 using namespace std;
 
 #include "shader.h"
+#include "util.h"
 
 #pragma region Data
 // Vertex Data
@@ -83,6 +84,8 @@ int main()
 		cout << "Failed to initialize GLAD" << endl;
 		return -1;
 	}
+
+	printMaxVASupport();
 
 	glViewport(0, 0, 800, 600);
 	glfwSetFramebufferSizeCallback(win, framebuffer_size_callback);

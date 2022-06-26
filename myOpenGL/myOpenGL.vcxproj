@@ -30,13 +30,19 @@
     <ClCompile Include="main.cpp" />
     <ClCompile Include="glad.c" />
     <ClCompile Include="shader.cpp" />
+    <ClCompile Include="util.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="first.ps" />
     <None Include="first.vs" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="..\Include\glad\glad.h" />
+    <ClInclude Include="..\Include\glfw3.h" />
+    <ClInclude Include="..\Include\glfw3native.h" />
+    <ClInclude Include="..\Include\KHR\khrplatform.h" />
     <ClInclude Include="shader.h" />
+    <ClInclude Include="util.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>
@@ -184,6 +190,7 @@
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AdditionalOptions>/nodefaultlib:library %(AdditionalOptions)</AdditionalOptions>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='myOpenGL_d_r|x64'">
@@ -214,6 +221,7 @@
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
       <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AdditionalOptions>/nodefaultlib:library %(AdditionalOptions)</AdditionalOptions>
     </Link>
   </ItemDefinitionGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
