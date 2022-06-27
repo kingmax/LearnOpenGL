@@ -16,7 +16,7 @@ void printMaxVASupport();
 void sendColor2Shader(unsigned shaderProgram, const char* uniformShaderVariableName);
 
 // 错误写法，vertices数组根本传不进来，所以无法正常得到数据，留在这供参考，需要使用下面的模板函数，而模板函数为了不发生链接报错，需要将定义与实现写在一个文件中
-//void prepareTriangle(const float* vertices, unsigned& VAO, const unsigned stride=3);
+void prepareTriangle(const float* vertices, unsigned& VAO, const unsigned stride=3);
 
 // 因为模板函数编译时不生成实际代码，所以如果不把实现放在同一个文件中，在main中调用，链接时时就会出现报错:"无法解析的外部符号"
 // https://blog.csdn.net/qq_39779233/article/details/102973324
@@ -44,3 +44,32 @@ unsigned int prepareTriangleData(float(&vertices)[N])
 
 // 默认参数需要写在头文件中
 void drawTriangle(const unsigned& VAO, Shader& myShader, const unsigned vertexCount = 3);
+
+
+template<int M, int N>
+unsigned int prepareRectangleData(float(&vertices)[M], unsigned int(&indices)[N])
+{
+	unsigned int VAO;
+	glGenVertexArrays(1, &VAO);
+	glBindVertexArray(VAO);
+
+	unsigned int VBO;
+	glGenBuffers(1, &VBO);
+	glBindBuffer(GL_ARRAY_BUFFER, VBO);
+	glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STATIC_DRAW);
+
+	unsigned int EBO;
+	glGenBuffers(1, &EBO);
+	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, EBO);
+	glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(indices), indices, GL_STATIC_DRAW);
+
+	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 6 * sizeof(float), (void*)0);
+	glEnableVertexAttribArray(0);
+	glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 6 * sizeof(float), (void*)(3 * sizeof(float)));
+	glEnableVertexAttribArray(1);
+
+	return VAO;
+}
+
+void drawRectangle(const unsigned& VAO, Shader& myShader, const unsigned vertexCount=6);
+

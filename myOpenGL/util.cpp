@@ -132,3 +132,11 @@ void drawTriangle(const unsigned& VAO, Shader& myShader, const unsigned vertexCo
 	glBindVertexArray(VAO);
 	glDrawArrays(GL_TRIANGLES, 0, vertexCount);
 }
+
+void drawRectangle(const unsigned& VAO, Shader& myShader, const unsigned vertexCount)
+{
+	myShader.use();
+	myShader.setFloat("myAlphaFromCPU", 0.9f);
+	glBindVertexArray(VAO);
+	glDrawElements(GL_TRIANGLES, vertexCount, GL_UNSIGNED_INT, 0);
+}
