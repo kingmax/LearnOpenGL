@@ -71,6 +71,11 @@ Shader::Shader(const char* vertShaderFilename, const char* fragShaderFilename)
 	glDeleteShader(frag);
 }
 
+Shader::Shader()
+{
+	ID = 0;
+}
+
 void Shader::use()
 {
 	glUseProgram(ID);

@@ -16,6 +16,7 @@ class Shader
 public:
 	// shaderProgram ID
 	unsigned int ID;
+	Shader();
 	Shader(const char* vertShaderFilename, const char* fragShaderFilename);
 	void use();
 	// help functions

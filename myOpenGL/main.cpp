@@ -20,7 +20,7 @@ float triangle_vertices[] = {
 };
 
 // Vertex Array Object (VAO, Array of VBO)
-unsigned int gVAO;
+unsigned int VAO;
 
 // Vertex Buffer Object (VBO)
 unsigned int VBO;
@@ -62,20 +62,20 @@ unsigned int EBO;
 //}
 #pragma endregion functions 
 
-
+// 重构后
 int main()
 {
 	GLFWwindow* win;
 	init(win);
 
-	//unsigned int VAO;
-	gVAO = prepareTriangleData(triangle_vertices);
-
+	// preparing data
+	unsigned int VAO_Triangle;
+	VAO_Triangle = prepareTriangleData(triangle_vertices);
+	unsigned VAO_Rectangle;
+	VAO_Rectangle = prepareRectangleData(rectangle_vertices, rectangle_indices);
+	// preparing shader
 	Shader greenShader("02.vert", "02.frag");
 	Shader alphaShader("03.vert", "03.frag");
-	alphaShader.setFloat("myAlphaFromCPU", 0.9f);
-
-	gVAO = prepareRectangleData(rectangle_vertices, rectangle_indices);
 
 	while (!glfwWindowShouldClose(win))
 	{
@@ -85,8 +85,16 @@ int main()
 		glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
 		glClear(GL_COLOR_BUFFER_BIT);
 
-		//drawTriangle(VAO, greenShader, 3);
-		drawRectangle(gVAO, alphaShader, 6);
+		// 按住R键时渲染矩形
+		if (glfwGetKey(win, GLFW_KEY_R) == GLFW_PRESS)
+		{
+			cout << "R Key Pressed, switch to render Rectangle" << endl;
+			drawRectangle(VAO_Rectangle, alphaShader, 6);
+		}
+		else // 否则默认渲染三角形
+		{
+			drawTriangle(VAO_Triangle, greenShader, 3);
+		}
 
 		glfwSwapBuffers(win);
 		glfwPollEvents();
@@ -133,7 +141,7 @@ int main2()
 	// using Vertex Array Object (VAO) (存放VBO的数组，方便管理大量物体顶点配置数据)
 	// 必须放在VBO前面
 	//unsigned int VAO;
-	glGenVertexArrays(1, &gVAO);
+	glGenVertexArrays(1, &VAO);
 	//glBindVertexArray(VAO);
 
 	//读入顶点数据，选产生一个VBO对象 (Vertex Buffer Object), 然后绑定到GL_ARRAY_BUFFER, 最后将实际顶点数据复制到绑定的Buffer
@@ -218,7 +226,7 @@ void main()
 
 #pragma region use EBO
 	// 使用 EBO 重画2个三角形组成一个矩形 (完整流程，覆盖了以上画单个三角形的一系列设置)
-	glBindVertexArray(gVAO);
+	glBindVertexArray(VAO);
 
 	glBindBuffer(GL_ARRAY_BUFFER, VBO);
 	glBufferData(GL_ARRAY_BUFFER, sizeof(rectangle_vertices), rectangle_vertices, GL_STATIC_DRAW);
@@ -267,7 +275,7 @@ void main()
 
 		// using EBO draw Rectangle (2 triangles)
 		//glUseProgram(shaderProgram);
-		glBindVertexArray(gVAO);
+		glBindVertexArray(VAO);
 		glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
 
 		// send data to GPU shader (02.frag:: uniform vec4 ourColor)
