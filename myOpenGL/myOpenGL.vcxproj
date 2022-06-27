@@ -30,6 +30,7 @@
     <ClCompile Include="main.cpp" />
     <ClCompile Include="glad.c" />
     <ClCompile Include="shader.cpp" />
+    <ClCompile Include="shaderClass.cpp" />
     <ClCompile Include="util.cpp" />
   </ItemGroup>
   <ItemGroup>
