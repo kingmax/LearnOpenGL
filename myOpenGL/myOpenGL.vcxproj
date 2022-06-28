@@ -41,6 +41,8 @@
     <None Include="02.vert" />
     <None Include="03.frag" />
     <None Include="03.vert" />
+    <None Include="trans.frag" />
+    <None Include="trans.vert" />
     <None Include="uv.frag" />
     <None Include="uv.vert" />
   </ItemGroup>

@@ -2,8 +2,12 @@
 
 #include <glad/glad.h>
 #include <glfw3.h>
-
+// texture loader
 #include "stb_image.h"
+// math lib
+#include "glm/glm.hpp"
+#include "glm/gtc/matrix_transform.hpp"
+#include "glm/gtc/type_ptr.hpp"
 
 #include "shaderClass.h"
 
@@ -106,9 +110,15 @@ unsigned int prepareRectangleWithUV(float(&vertices)[M], unsigned int(&indices)[
 }
 
 void drawRectangleWithTexture(const unsigned& VAO, Shader& myShader, const unsigned& texture, const unsigned vertexCount = 6);
-
 void drawRectangleWithTextureMix(const unsigned& VAO, Shader& myShader, const unsigned& texture1, const unsigned& texture2, const unsigned vertexCount = 6);
+void drawRectangleWithTextureMixTransform(const unsigned& VAO, Shader& myShader, const unsigned& texture1, const unsigned& texture2, const glm::mat4& trans, const unsigned vertexCount = 6);
 
 #pragma region Texture
 unsigned loadTexture(const string textureFilename);
 #pragma endregion Texture
+
+#pragma region Transformation
+void translateTest();
+void genTransform(glm::mat4& trans);
+void updateTransform(glm::mat4& trans);
+#pragma endregion Transformation

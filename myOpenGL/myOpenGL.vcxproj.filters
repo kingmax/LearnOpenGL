@@ -62,6 +62,12 @@
     <None Include="uv.frag">
       <Filter>shader</Filter>
     </None>
+    <None Include="trans.vert">
+      <Filter>shader</Filter>
+    </None>
+    <None Include="trans.frag">
+      <Filter>shader</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="shader.h">

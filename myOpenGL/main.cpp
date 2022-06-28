@@ -93,6 +93,13 @@ int main()
 	Shader greenShader("02.vert", "02.frag");
 	Shader alphaShader("03.vert", "03.frag");
 	Shader uvShader("uv.vert", "uv.frag");
+	Shader transShader("trans.vert", "trans.frag");
+
+	// math lib test
+	translateTest();
+	// transform
+	glm::mat4 trans = glm::mat4(1.0f);
+	genTransform(trans);
 
 	while (!glfwWindowShouldClose(win))
 	{
@@ -116,13 +123,21 @@ int main()
 		{
 			drawRectangleWithTextureMix(VAO_RectangleWithUV, uvShader, texContainer, texAwesomeface, 6);
 		}
+		else if (glfwGetKey(win, GLFW_KEY_4) == GLFW_PRESS)
+		{
+			drawRectangleWithTextureMixTransform(VAO_RectangleWithUV, transShader, texContainer, texAwesomeface, trans, 6);
+			updateTransform(trans);
+		}
 		else // 否则默认渲染三角形
 		{
-			drawTriangle(VAO_Triangle, greenShader, 3);
+			//drawTriangle(VAO_Triangle, greenShader, 3);
 			//drawRectangle(VAO_Rectangle, alphaShader, 6);
 			//drawRectangleWithTexture(VAO_RectangleWithUV, uvShader, texContainer, 6);
 			//drawRectangleWithTexture(VAO_RectangleWithUV, uvShader, texAwesomeface, 6);
 			//drawRectangleWithTextureMix(VAO_RectangleWithUV, uvShader, texContainer, texAwesomeface, 6);
+			// transform animation
+			drawRectangleWithTextureMixTransform(VAO_RectangleWithUV, transShader, texContainer, texAwesomeface, trans, 6);
+			updateTransform(trans);
 		}
 
 		glfwSwapBuffers(win);

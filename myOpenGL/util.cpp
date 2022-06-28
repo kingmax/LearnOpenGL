@@ -164,6 +164,22 @@ void drawRectangleWithTextureMix(const unsigned& VAO, Shader& myShader, const un
 	glDrawElements(GL_TRIANGLES, vertexCount, GL_UNSIGNED_INT, 0);
 }
 
+void drawRectangleWithTextureMixTransform(const unsigned& VAO, Shader& myShader, const unsigned& texture1, const unsigned& texture2, const glm::mat4& trans, const unsigned vertexCount /*= 6*/)
+{
+	glActiveTexture(GL_TEXTURE0);
+	glBindTexture(GL_TEXTURE_2D, texture1);
+	glActiveTexture(GL_TEXTURE1);
+	glBindTexture(GL_TEXTURE_2D, texture2);
+	myShader.use();
+	myShader.setInt("texture1", 0);
+	myShader.setInt("texture2", 1);
+	unsigned transformLocation = glGetUniformLocation(myShader.ID, "transform");
+	glUniformMatrix4fv(transformLocation, 1, GL_FALSE, glm::value_ptr(trans));
+
+	glBindVertexArray(VAO);
+	glDrawElements(GL_TRIANGLES, vertexCount, GL_UNSIGNED_INT, 0);
+}
+
 unsigned loadTexture(const string textureFilename)
 {
 	unsigned texture;
@@ -190,4 +206,33 @@ unsigned loadTexture(const string textureFilename)
 	stbi_image_free(data);
 
 	return texture;
+}
+
+void translateTest()
+{
+	glm::vec4 vec(1.0f, 0.0f, 0.0f, 1.0f);
+	glm::mat4 trans = glm::mat4(1.0f);
+	trans = glm::translate(trans, glm::vec3(1.0f, 1.0f, 1.0f));
+
+	vec = trans * vec;
+	cout << "Vector(1,0,0) move to: (" << vec.x << "," << vec.y << "," << vec.z << ")" << endl;
+}
+
+void genTransform(glm::mat4& trans)
+{
+	glm::mat4 mat = glm::mat4(1.0f);
+	// 实际的变换顺序应该与阅读顺序相反, 也就是说这里的矩阵做的操作实际上是：
+	// 先缩放，后旋转
+	mat = glm::rotate(mat, glm::radians(90.0f), glm::vec3(0, 0, 1));
+	mat = glm::scale(mat, glm::vec3(0.5, 0.5, 0.5));
+	trans = mat;
+}
+
+void updateTransform(glm::mat4& trans)
+{
+	glm::mat4 mat = glm::mat4(1.0f);
+	// 先旋转，后移动
+	mat = glm::translate(mat, glm::vec3(0.5f, -0.5f, 0.0f));
+	mat = glm::rotate(mat, (float)glfwGetTime(), glm::vec3(0, 0, 1));
+	trans = mat;
 }
