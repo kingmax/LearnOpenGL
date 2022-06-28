@@ -149,6 +149,21 @@ void drawRectangleWithTexture(const unsigned& VAO, Shader& myShader, const unsig
 	glDrawElements(GL_TRIANGLES, vertexCount, GL_UNSIGNED_INT, 0);
 }
 
+void drawRectangleWithTextureMix(const unsigned& VAO, Shader& myShader, const unsigned& texture1, const unsigned& texture2, const unsigned vertexCount /*= 6*/)
+{
+	// 激活、绑定纹理单元 (默认自动绑定第1个即GL_TEXTURE0, 最多一共有16个可用)
+	glActiveTexture(GL_TEXTURE0);
+	glBindTexture(GL_TEXTURE_2D, texture1);
+	glActiveTexture(GL_TEXTURE1);
+	glBindTexture(GL_TEXTURE_2D, texture2);
+	myShader.use();
+	// 需要指定哪个sampler2D对应哪个纹理单元
+	glUniform1i(glGetUniformLocation(myShader.ID, "texture1"), 0);
+	myShader.setInt("texture2", 1);
+	glBindVertexArray(VAO);
+	glDrawElements(GL_TRIANGLES, vertexCount, GL_UNSIGNED_INT, 0);
+}
+
 unsigned loadTexture(const string textureFilename)
 {
 	unsigned texture;
@@ -161,6 +176,7 @@ unsigned loadTexture(const string textureFilename)
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
 	// load texture from file
 	int w, h, nChannels;
+	stbi_set_flip_vertically_on_load(true);
 	unsigned char* data = stbi_load(textureFilename.c_str(), &w, &h, &nChannels, 0);
 	if (data)
 	{

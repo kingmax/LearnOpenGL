@@ -107,6 +107,8 @@ unsigned int prepareRectangleWithUV(float(&vertices)[M], unsigned int(&indices)[
 
 void drawRectangleWithTexture(const unsigned& VAO, Shader& myShader, const unsigned& texture, const unsigned vertexCount = 6);
 
+void drawRectangleWithTextureMix(const unsigned& VAO, Shader& myShader, const unsigned& texture1, const unsigned& texture2, const unsigned vertexCount = 6);
+
 #pragma region Texture
 unsigned loadTexture(const string textureFilename);
 #pragma endregion Texture

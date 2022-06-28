@@ -87,6 +87,8 @@ int main()
 	// texture
 	unsigned texContainer;
 	texContainer = loadTexture("container.jpg");
+	unsigned texAwesomeface;
+	texAwesomeface = loadTexture("awesomeface.jpg");
 	// preparing shader
 	Shader greenShader("02.vert", "02.frag");
 	Shader alphaShader("03.vert", "03.frag");
@@ -101,20 +103,26 @@ int main()
 		glClear(GL_COLOR_BUFFER_BIT);
 
 		// 按住R键时渲染矩形
-		if (glfwGetKey(win, GLFW_KEY_R) == GLFW_PRESS)
+		if (glfwGetKey(win, GLFW_KEY_1) == GLFW_PRESS)
 		{
 			//cout << "R Key Pressed, switch to render Rectangle" << endl;
 			drawRectangle(VAO_Rectangle, alphaShader, 6);
 		}
-		else if (glfwGetKey(win, GLFW_KEY_T) == GLFW_PRESS)
+		else if (glfwGetKey(win, GLFW_KEY_2) == GLFW_PRESS)
 		{
 			drawRectangleWithTexture(VAO_RectangleWithUV, uvShader, texContainer, 6);
 		}
+		else if (glfwGetKey(win, GLFW_KEY_3) == GLFW_PRESS)
+		{
+			drawRectangleWithTextureMix(VAO_RectangleWithUV, uvShader, texContainer, texAwesomeface, 6);
+		}
 		else // 否则默认渲染三角形
 		{
-			//drawTriangle(VAO_Triangle, greenShader, 3);
+			drawTriangle(VAO_Triangle, greenShader, 3);
 			//drawRectangle(VAO_Rectangle, alphaShader, 6);
-			drawRectangleWithTexture(VAO_RectangleWithUV, uvShader, texContainer, 6);
+			//drawRectangleWithTexture(VAO_RectangleWithUV, uvShader, texContainer, 6);
+			//drawRectangleWithTexture(VAO_RectangleWithUV, uvShader, texAwesomeface, 6);
+			//drawRectangleWithTextureMix(VAO_RectangleWithUV, uvShader, texContainer, texAwesomeface, 6);
 		}
 
 		glfwSwapBuffers(win);
