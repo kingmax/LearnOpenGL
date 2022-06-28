@@ -33,6 +33,9 @@
     <ClCompile Include="shaderClass.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
+    <ClCompile Include="stb_image.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="01.vert">
@@ -51,6 +54,12 @@
       <Filter>shader</Filter>
     </None>
     <None Include="03.frag">
+      <Filter>shader</Filter>
+    </None>
+    <None Include="uv.vert">
+      <Filter>shader</Filter>
+    </None>
+    <None Include="uv.frag">
       <Filter>shader</Filter>
     </None>
   </ItemGroup>
@@ -74,6 +83,9 @@
       <Filter>头文件</Filter>
     </ClInclude>
     <ClInclude Include="shaderClass.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Include\stb_image.h">
       <Filter>头文件</Filter>
     </ClInclude>
   </ItemGroup>

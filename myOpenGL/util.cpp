@@ -140,3 +140,38 @@ void drawRectangle(const unsigned& VAO, Shader& myShader, const unsigned vertexC
 	glBindVertexArray(VAO);
 	glDrawElements(GL_TRIANGLES, vertexCount, GL_UNSIGNED_INT, 0);
 }
+
+void drawRectangleWithTexture(const unsigned& VAO, Shader& myShader, const unsigned& texture, const unsigned vertexCount /*= 6*/)
+{
+	myShader.use();
+	glBindTexture(GL_TEXTURE_2D, texture);
+	glBindVertexArray(VAO);
+	glDrawElements(GL_TRIANGLES, vertexCount, GL_UNSIGNED_INT, 0);
+}
+
+unsigned loadTexture(const string textureFilename)
+{
+	unsigned texture;
+	glGenTextures(1, &texture);
+	glBindTexture(GL_TEXTURE_2D, texture);
+	//设置纹理重复、过滤方式
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+	// load texture from file
+	int w, h, nChannels;
+	unsigned char* data = stbi_load(textureFilename.c_str(), &w, &h, &nChannels, 0);
+	if (data)
+	{
+		glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, w, h, 0, GL_RGB, GL_UNSIGNED_BYTE, data);
+		glGenerateMipmap(GL_TEXTURE_2D);
+	}
+	else
+	{
+		cout << "ERROR:: load texture failed from <- " << textureFilename << endl;
+	}
+	stbi_image_free(data);
+
+	return texture;
+}

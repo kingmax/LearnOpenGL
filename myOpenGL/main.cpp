@@ -32,10 +32,10 @@ const string psShaderFile = "03.frag"; // "02.frag"; // "01.frag";
 // Element Buffer Object (EBO)
 // 后三列为颜色数据
 float rectangle_vertices[] = {
-	0.5f, 0.5f, 0.0f,	1.0f, 0.0f, 0.0f,
-	0.5f, -0.5f, 0.0f,	0.0f, 1.0f, 0.0f,
-	-0.5f, -0.5f, 0.0f,	0.0f, 0.0f, 1.0f,
-	-0.5f, 0.5f, 0.0f,	0.0f, 0.0f, 0.0f
+	0.5f, 0.5f, 0.0f,		1.0f, 0.0f, 0.0f,
+	0.5f, -0.5f, 0.0f,		0.0f, 1.0f, 0.0f,
+	-0.5f, -0.5f, 0.0f,		0.0f, 0.0f, 1.0f,
+	-0.5f, 0.5f, 0.0f,		0.0f, 0.0f, 0.0f
 };
 
 unsigned int rectangle_indices[] = {
@@ -44,6 +44,15 @@ unsigned int rectangle_indices[] = {
 };
 
 unsigned int EBO;
+
+// apply texture, 后二列为UV坐标(右上，右下，左下(UV坐标原点)，左上)
+float rectangle_vertices_with_uv[] = {
+	0.5f, 0.5f, 0.0f,		1.0f, 0.0f, 0.0f,		1.0f, 1.0f,
+	0.5f, -0.5f, 0.0f,		0.0f, 1.0f, 0.0f,		1.0f, 0.0f,
+	-0.5f, -0.5f, 0.0f,		0.0f, 0.0f, 1.0f,		0.0f, 0.0f,
+	-0.5f, 0.5f, 0.0f,		0.0f, 0.0f, 0.0f,		0.0f, 1.0f
+};
+
 #pragma endregion Data
 
 #pragma region functions // MOVE TO util
@@ -73,9 +82,15 @@ int main()
 	VAO_Triangle = prepareTriangleData(triangle_vertices);
 	unsigned VAO_Rectangle;
 	VAO_Rectangle = prepareRectangleData(rectangle_vertices, rectangle_indices);
+	unsigned VAO_RectangleWithUV;
+	VAO_RectangleWithUV = prepareRectangleWithUV(rectangle_vertices_with_uv, rectangle_indices);
+	// texture
+	unsigned texContainer;
+	texContainer = loadTexture("container.jpg");
 	// preparing shader
 	Shader greenShader("02.vert", "02.frag");
 	Shader alphaShader("03.vert", "03.frag");
+	Shader uvShader("uv.vert", "uv.frag");
 
 	while (!glfwWindowShouldClose(win))
 	{
@@ -88,12 +103,18 @@ int main()
 		// 按住R键时渲染矩形
 		if (glfwGetKey(win, GLFW_KEY_R) == GLFW_PRESS)
 		{
-			cout << "R Key Pressed, switch to render Rectangle" << endl;
+			//cout << "R Key Pressed, switch to render Rectangle" << endl;
 			drawRectangle(VAO_Rectangle, alphaShader, 6);
+		}
+		else if (glfwGetKey(win, GLFW_KEY_T) == GLFW_PRESS)
+		{
+			drawRectangleWithTexture(VAO_RectangleWithUV, uvShader, texContainer, 6);
 		}
 		else // 否则默认渲染三角形
 		{
-			drawTriangle(VAO_Triangle, greenShader, 3);
+			//drawTriangle(VAO_Triangle, greenShader, 3);
+			//drawRectangle(VAO_Rectangle, alphaShader, 6);
+			drawRectangleWithTexture(VAO_RectangleWithUV, uvShader, texContainer, 6);
 		}
 
 		glfwSwapBuffers(win);

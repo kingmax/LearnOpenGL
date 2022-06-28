@@ -3,6 +3,8 @@
 #include <glad/glad.h>
 #include <glfw3.h>
 
+#include "stb_image.h"
+
 #include "shaderClass.h"
 
 void framebuffer_size_callback(GLFWwindow* win, int w, int h);
@@ -47,7 +49,7 @@ void drawTriangle(const unsigned& VAO, Shader& myShader, const unsigned vertexCo
 
 
 template<int M, int N>
-unsigned int prepareRectangleData(float(&vertices)[M], unsigned int(&indices)[N])
+unsigned int prepareRectangleData(float(&vertices)[M], unsigned int(&indices)[N], const unsigned stride = 6)
 {
 	unsigned int VAO;
 	glGenVertexArrays(1, &VAO);
@@ -62,10 +64,11 @@ unsigned int prepareRectangleData(float(&vertices)[M], unsigned int(&indices)[N]
 	glGenBuffers(1, &EBO);
 	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, EBO);
 	glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(indices), indices, GL_STATIC_DRAW);
-
-	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 6 * sizeof(float), (void*)0);
+	// pos
+	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, stride * sizeof(float), (void*)0);
 	glEnableVertexAttribArray(0);
-	glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 6 * sizeof(float), (void*)(3 * sizeof(float)));
+	// color
+	glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, stride * sizeof(float), (void*)(3 * sizeof(float)));
 	glEnableVertexAttribArray(1);
 
 	return VAO;
@@ -73,3 +76,37 @@ unsigned int prepareRectangleData(float(&vertices)[M], unsigned int(&indices)[N]
 
 void drawRectangle(const unsigned& VAO, Shader& myShader, const unsigned vertexCount=6);
 
+template<int M, int N>
+unsigned int prepareRectangleWithUV(float(&vertices)[M], unsigned int(&indices)[N], const unsigned stride = 8)
+{
+	unsigned int VAO;
+	glGenVertexArrays(1, &VAO);
+	glBindVertexArray(VAO);
+
+	unsigned int VBO;
+	glGenBuffers(1, &VBO);
+	glBindBuffer(GL_ARRAY_BUFFER, VBO);
+	glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STATIC_DRAW);
+
+	unsigned int EBO;
+	glGenBuffers(1, &EBO);
+	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, EBO);
+	glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(indices), indices, GL_STATIC_DRAW);
+	// pos
+	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, stride * sizeof(float), (void*)0);
+	glEnableVertexAttribArray(0);
+	// color
+	glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, stride * sizeof(float), (void*)(3 * sizeof(float)));
+	glEnableVertexAttribArray(1);
+	// uv
+	glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE, stride * sizeof(float), (void*)(6 * sizeof(float)));
+	glEnableVertexAttribArray(2);
+
+	return VAO;
+}
+
+void drawRectangleWithTexture(const unsigned& VAO, Shader& myShader, const unsigned& texture, const unsigned vertexCount = 6);
+
+#pragma region Texture
+unsigned loadTexture(const string textureFilename);
+#pragma endregion Texture
