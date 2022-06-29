@@ -71,11 +71,13 @@ float rectangle_vertices_with_uv[] = {
 //}
 #pragma endregion functions 
 
+const unsigned screenWidth = 800;
+const unsigned screenHeight = 600;
 // 重构后
 int main()
 {
 	GLFWwindow* win;
-	init(win);
+	init(win, screenWidth, screenHeight);
 
 	// preparing data
 	unsigned int VAO_Triangle;
@@ -94,12 +96,19 @@ int main()
 	Shader alphaShader("03.vert", "03.frag");
 	Shader uvShader("uv.vert", "uv.frag");
 	Shader transShader("trans.vert", "trans.frag");
+	Shader _3dShader("3d.vert", "3d.frag");
 
 	// math lib test
 	translateTest();
 	// transform
 	glm::mat4 trans = glm::mat4(1.0f);
 	genTransform(trans);
+
+	// into 3D
+	glm::mat4 model;
+	glm::mat4 view;
+	glm::mat4 projection;
+	getMVP(model, view, projection, screenWidth, screenHeight);
 
 	while (!glfwWindowShouldClose(win))
 	{
@@ -128,16 +137,21 @@ int main()
 			drawRectangleWithTextureMixTransform(VAO_RectangleWithUV, transShader, texContainer, texAwesomeface, trans, 6);
 			updateTransform(trans);
 		}
+		else if (glfwGetKey(win, GLFW_KEY_5) == GLFW_PRESS)
+		{
+			updateMVP(_3dShader, model, view, projection);
+			drawRectangleWithTextureMix(VAO_RectangleWithUV, _3dShader, texContainer, texAwesomeface, 6);
+		}
 		else // 否则默认渲染三角形
 		{
-			//drawTriangle(VAO_Triangle, greenShader, 3);
+			drawTriangle(VAO_Triangle, greenShader, 3);
 			//drawRectangle(VAO_Rectangle, alphaShader, 6);
 			//drawRectangleWithTexture(VAO_RectangleWithUV, uvShader, texContainer, 6);
 			//drawRectangleWithTexture(VAO_RectangleWithUV, uvShader, texAwesomeface, 6);
 			//drawRectangleWithTextureMix(VAO_RectangleWithUV, uvShader, texContainer, texAwesomeface, 6);
 			// transform animation
-			drawRectangleWithTextureMixTransform(VAO_RectangleWithUV, transShader, texContainer, texAwesomeface, trans, 6);
-			updateTransform(trans);
+			//drawRectangleWithTextureMixTransform(VAO_RectangleWithUV, transShader, texContainer, texAwesomeface, trans, 6);
+			//updateTransform(trans);
 		}
 
 		glfwSwapBuffers(win);

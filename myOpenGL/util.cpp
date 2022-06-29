@@ -4,7 +4,7 @@
 using namespace std;
 
 
-void framebuffer_size_callback(GLFWwindow* win, int w, int h)
+void framebuffer_size_callback(GLFWwindow* win, const int w, const int h)
 {
 	cout << "size changed: " << w << " x " << h << endl;
 	glViewport(0, 0, w, h);
@@ -18,7 +18,7 @@ void processInput(GLFWwindow* win)
 	}
 }
 
-void init(GLFWwindow* &win)
+void init(GLFWwindow* &win, const int screenWidth, const int screenHeight)
 {
 	glfwInit();
 	glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 4);
@@ -31,7 +31,7 @@ void init(GLFWwindow* &win)
 	//glfwWindowHint(GLFW_DECORATED, GL_FALSE);
 
 	//GLFWwindow* win = glfwCreateWindow(800, 600, u8"学习OpenGL", NULL, NULL);
-	win = glfwCreateWindow(800, 600, u8"学习OpenGL", NULL, NULL);
+	win = glfwCreateWindow(screenWidth, screenHeight, u8"学习OpenGL", NULL, NULL);
 	if (win == NULL)
 	{
 		cout << "失败创建 GLFW window" << endl;
@@ -46,7 +46,7 @@ void init(GLFWwindow* &win)
 		return;
 	}
 
-	glViewport(0, 0, 800, 600);
+	glViewport(0, 0, screenWidth, screenHeight);
 	glfwSetFramebufferSizeCallback(win, framebuffer_size_callback);
 }
 
@@ -235,4 +235,36 @@ void updateTransform(glm::mat4& trans)
 	mat = glm::translate(mat, glm::vec3(0.5f, -0.5f, 0.0f));
 	mat = glm::rotate(mat, (float)glfwGetTime(), glm::vec3(0, 0, 1));
 	trans = mat;
+}
+
+void getMVP(glm::mat4& model, glm::mat4& view, glm::mat4& projection, const unsigned screenWidth, const unsigned screenHeight)
+{
+	// 模型顶点从本地局部坐标变换到裁剪坐标(即OpenGL希望的(-1, 1)空间范围)的过程：
+	// local vector (vertex position) * model matrix * view matrix * projection matrix
+	// 顶点坐标变换到clip (-1,1)后，OpenGL vertex shader 将自动进行透视除法与裁剪，从而将它们变换到标准化设备坐标(Normalized Device Coordinate, NDC)
+	// 之后OpenGL会使用glViewPort内部的参数来将标准化设备坐标映射到屏幕坐标，每个坐标都关联了一个屏幕上的点（在我们的例子中是一个800x600的屏幕）。这个过程称为视口变换。
+	// 这样就完成了从模型顶点到屏幕像素的映射！
+	// 
+	// 注意：以下公式写法顺序与上面描述是相反的，因为矩阵运算的关系
+	// V_clip = M_projection * M_view * M_model * V_local
+	
+	// model 矩阵用于将模型空间坐标变换到世界空间
+	model = glm::mat4(1.0f);
+	model = glm::rotate(model, glm::radians(55.0f), glm::vec3(1, 0, 0));
+	// 右手坐标，Z轴指向屏幕外，将场景往-Z移动就相当于相机退后
+	view = glm::mat4(1.0f);
+	view = glm::translate(view, glm::vec3(0, 0, -3.0f));
+	// 透视投影矩阵
+	projection = glm::mat4(1.0f);
+	projection = glm::perspective(glm::radians(45.0f), 1.0f * screenWidth / screenHeight, 0.1f, 100.0f);
+}
+
+void updateMVP(Shader& myShader, glm::mat4& model, glm::mat4& view, glm::mat4& projection)
+{
+	unsigned modelLocation = glGetUniformLocation(myShader.ID, "model");
+	glUniformMatrix4fv(modelLocation, 1, GL_FALSE, glm::value_ptr(model));
+	unsigned viewLocation = glGetUniformLocation(myShader.ID, "view");
+	glUniformMatrix4fv(viewLocation, 1, GL_FALSE, glm::value_ptr(view));
+	unsigned projectionLocation = glGetUniformLocation(myShader.ID, "projection");
+	glUniformMatrix4fv(projectionLocation, 1, GL_FALSE, glm::value_ptr(projection));
 }

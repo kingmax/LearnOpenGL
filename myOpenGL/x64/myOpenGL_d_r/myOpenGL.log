@@ -1,2 +1,5 @@
 ﻿  main.cpp
+  util.cpp
+E:\git\learnOpenGL\myOpenGL\util.cpp(139,64): warning C4244: “参数”: 从“double”转换到“float”，可能丢失数据
+  正在生成代码...
   myOpenGL.vcxproj -> E:\git\learnOpenGL\myOpenGL\x64\myOpenGL_d_r\myOpenGL.exe

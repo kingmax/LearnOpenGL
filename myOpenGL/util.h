@@ -11,10 +11,10 @@
 
 #include "shaderClass.h"
 
-void framebuffer_size_callback(GLFWwindow* win, int w, int h);
+void framebuffer_size_callback(GLFWwindow* win, const int w, const int h);
 void processInput(GLFWwindow* win);
 
-void init(GLFWwindow*& win);
+void init(GLFWwindow*& win, const int screenWidth=800, const int screenHeight=600);
 
 void printMaxVASupport();
 
@@ -121,4 +121,10 @@ unsigned loadTexture(const string textureFilename);
 void translateTest();
 void genTransform(glm::mat4& trans);
 void updateTransform(glm::mat4& trans);
+
+// welcome to 3D
+void getMVP(glm::mat4& model, glm::mat4& view, glm::mat4& projection, const unsigned screenWidth, const unsigned screenHeight);
+// send MVP matrix to vertex shader (3d.vert)
+void updateMVP(Shader& myShader, glm::mat4& model, glm::mat4& view, glm::mat4& projection);
+
 #pragma endregion Transformation
