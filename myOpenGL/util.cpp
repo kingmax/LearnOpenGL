@@ -250,7 +250,7 @@ void getMVP(glm::mat4& model, glm::mat4& view, glm::mat4& projection, const unsi
 	
 	// model 矩阵用于将模型空间坐标变换到世界空间
 	model = glm::mat4(1.0f);
-	model = glm::rotate(model, glm::radians(55.0f), glm::vec3(1, 0, 0));
+	model = glm::rotate(model, glm::radians(-60.0f), glm::vec3(1, 0, 0));
 	// 右手坐标，Z轴指向屏幕外，将场景往-Z移动就相当于相机退后
 	view = glm::mat4(1.0f);
 	view = glm::translate(view, glm::vec3(0, 0, -3.0f));

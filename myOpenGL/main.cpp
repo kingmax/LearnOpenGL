@@ -142,6 +142,13 @@ int main()
 			updateMVP(_3dShader, model, view, projection);
 			drawRectangleWithTextureMix(VAO_RectangleWithUV, _3dShader, texContainer, texAwesomeface, 6);
 		}
+		else if (glfwGetKey(win, GLFW_KEY_6) == GLFW_PRESS)
+		{
+			// transform animation
+			model = glm::rotate(model, 0.1f * (float)sin(glfwGetTime()), glm::vec3(1, 0, 0));
+			updateMVP(_3dShader, model, view, projection);
+			drawRectangleWithTextureMix(VAO_RectangleWithUV, _3dShader, texContainer, texAwesomeface, 6);
+		}
 		else // 否则默认渲染三角形
 		{
 			drawTriangle(VAO_Triangle, greenShader, 3);
