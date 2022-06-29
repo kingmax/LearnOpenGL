@@ -165,9 +165,14 @@ int main()
 			updateMVP4Shader(boxShader, model, view, projection);
 			drawBox(VAO_Box, boxShader, texContainer, texAwesomeface, 180);
 		}
+		else if (glfwGetKey(win, GLFW_KEY_8) == GLFW_PRESS)
+		{
+			updateMVP4Shader(boxShader, model, view, projection);
+			drawBox10(VAO_Box, boxShader, texContainer, texAwesomeface, 180);
+		}
 		else // 否则默认渲染三角形
 		{
-			//drawTriangle(VAO_Triangle, greenShader, 3);
+			drawTriangle(VAO_Triangle, greenShader, 3);
 			//drawRectangle(VAO_Rectangle, alphaShader, 6);
 			//drawRectangleWithTexture(VAO_RectangleWithUV, uvShader, texContainer, 6);
 			//drawRectangleWithTexture(VAO_RectangleWithUV, uvShader, texAwesomeface, 6);
@@ -176,9 +181,9 @@ int main()
 			//drawRectangleWithTextureMixTransform(VAO_RectangleWithUV, transShader, texContainer, texAwesomeface, trans, 6);
 			//updateTransform(trans);
 
-			model = glm::rotate(model, 0.1f * (float)sin(glfwGetTime()), glm::vec3(0.5f, 0.5f, 0));
+			/*model = glm::rotate(model, 0.1f * (float)sin(glfwGetTime()), glm::vec3(0.5f, 0.5f, 0));
 			updateMVP4Shader(boxShader, model, view, projection);
-			drawBox(VAO_Box, boxShader, texContainer, texAwesomeface, 180);
+			drawBox(VAO_Box, boxShader, texContainer, texAwesomeface, 180);*/
 		}
 
 		glfwSwapBuffers(win);

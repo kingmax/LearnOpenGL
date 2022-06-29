@@ -9,6 +9,9 @@
 #include <sstream>
 #include <iostream>
 
+#include "glm/glm.hpp"
+#include "glm/gtc/type_ptr.hpp"
+
 using namespace std;
 
 class Shader
@@ -23,6 +26,7 @@ public:
 	void setBool(const string& name, bool value) const;
 	void setInt(const string& name, int value) const;
 	void setFloat(const string& name, float value) const;
+	void setMat4(const string& name, glm::mat4 value) const;
 
 private:
 

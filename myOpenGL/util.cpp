@@ -193,6 +193,52 @@ void drawBox(const unsigned& VAO, Shader& myShader, const unsigned& texture1, co
 	glDrawArrays(GL_TRIANGLES, 0, vertexCount);
 }
 
+// draw one box with position, ratation
+void drawBox(const unsigned& VAO, Shader& myShader, const unsigned& texture1, const unsigned& texture2, const glm::mat4 model, const unsigned vertexCount /*= 180*/)
+{
+	glActiveTexture(GL_TEXTURE0);
+	glBindTexture(GL_TEXTURE_2D, texture1);
+	glActiveTexture(GL_TEXTURE1);
+	glBindTexture(GL_TEXTURE_2D, texture2);
+	myShader.use();
+	myShader.setInt("texture1", 0);
+	myShader.setInt("texture2", 1);
+	myShader.setMat4("model", model);
+	glBindVertexArray(VAO);
+	glDrawArrays(GL_TRIANGLES, 0, vertexCount);
+}
+
+glm::mat4 getNewModelMatrix(glm::vec3& position)
+{
+	glm::mat4 model = glm::mat4(1.0f);
+	model = glm::translate(model, position);
+	return model;
+}
+
+void drawBox10(const unsigned& VAO, Shader& myShader, const unsigned& texture1, const unsigned& texture2, const unsigned vertexCount /*= 180*/)
+{
+	glm::vec3 cubePositions[] = {
+	  glm::vec3(0.0f,  0.0f,  0.0f),
+	  glm::vec3(2.0f,  5.0f, -15.0f),
+	  glm::vec3(-1.5f, -2.2f, -2.5f),
+	  glm::vec3(-3.8f, -2.0f, -12.3f),
+	  glm::vec3(2.4f, -0.4f, -3.5f),
+	  glm::vec3(-1.7f,  3.0f, -7.5f),
+	  glm::vec3(1.3f, -2.0f, -2.5f),
+	  glm::vec3(1.5f,  2.0f, -2.5f),
+	  glm::vec3(1.5f,  0.2f, -1.5f),
+	  glm::vec3(-1.3f,  1.0f, -1.5f)
+	};
+
+	for (unsigned i=0; i<10; i++)
+	{
+		glm::mat4 model = getNewModelMatrix(cubePositions[i]);
+		float angle = 20.0f * i;
+		model = glm::rotate(model, glm::radians(angle) * (float)sin(glfwGetTime()), glm::vec3(1.0f, 0.3f, 0.5f));
+		drawBox(VAO, myShader, texture1, texture2, model, vertexCount);
+	}
+}
+
 unsigned loadTexture(const string textureFilename)
 {
 	unsigned texture;
