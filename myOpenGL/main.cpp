@@ -170,6 +170,12 @@ int main()
 			updateMVP4Shader(boxShader, model, view, projection);
 			drawBox10(VAO_Box, boxShader, texContainer, texAwesomeface, 180);
 		}
+		else if (glfwGetKey(win, GLFW_KEY_9) == GLFW_PRESS)
+		{
+			view = getAnimateView(10.0f);
+			updateMVP4Shader(boxShader, model, view, projection);
+			drawBox10(VAO_Box, boxShader, texContainer, texAwesomeface, 180);
+		}
 		else // 否则默认渲染三角形
 		{
 			drawTriangle(VAO_Triangle, greenShader, 3);

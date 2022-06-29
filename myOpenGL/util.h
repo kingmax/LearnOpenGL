@@ -148,7 +148,7 @@ unsigned int prepareBoxData(float(&vertices)[N])
 
 void drawBox(const unsigned& VAO, Shader& myShader, const unsigned& texture1, const unsigned& texture2, const unsigned vertexCount = 180);
 // draw one box with position, ratation
-void drawBox(const unsigned& VAO, Shader& myShader, const unsigned& texture1, const unsigned& texture2, const glm::mat4 model, const unsigned vertexCount /*= 180*/);
+void drawBox(const unsigned& VAO, Shader& myShader, const unsigned& texture1, const unsigned& texture2, const glm::mat4 model, const unsigned vertexCount = 180);
 
 glm::mat4 getNewModelMatrix(glm::vec3& position);
 
@@ -170,5 +170,8 @@ void updateTransform(glm::mat4& trans);
 void getMVP(glm::mat4& model, glm::mat4& view, glm::mat4& projection, const unsigned screenWidth, const unsigned screenHeight);
 // send MVP matrix to vertex shader (3d.vert)
 void updateMVP4Shader(Shader& myShader, glm::mat4& model, glm::mat4& view, glm::mat4& projection);
+
+// camera (view Matrix)
+glm::mat4 getAnimateView(const float radius = 10.0f);
 
 #pragma endregion Transformation
