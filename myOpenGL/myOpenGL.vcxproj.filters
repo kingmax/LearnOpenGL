@@ -16,6 +16,9 @@
     <Filter Include="shader">
       <UniqueIdentifier>{85045862-ccd6-4fe0-8aca-96685debf18a}</UniqueIdentifier>
     </Filter>
+    <Filter Include="data">
+      <UniqueIdentifier>{97ba1098-de4a-4414-b8f0-4b021343e8f4}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -34,6 +37,9 @@
       <Filter>源文件</Filter>
     </ClCompile>
     <ClCompile Include="stb_image.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="data.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
   </ItemGroup>
@@ -74,6 +80,12 @@
     <None Include="3d.frag">
       <Filter>shader</Filter>
     </None>
+    <None Include="box.vert">
+      <Filter>shader</Filter>
+    </None>
+    <None Include="box.frag">
+      <Filter>shader</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="shader.h">
@@ -101,6 +113,9 @@
       <Filter>头文件</Filter>
     </ClInclude>
     <ClInclude Include="..\Include\glm\glm.hpp">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="data.h">
       <Filter>头文件</Filter>
     </ClInclude>
   </ItemGroup>

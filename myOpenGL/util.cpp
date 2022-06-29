@@ -180,6 +180,19 @@ void drawRectangleWithTextureMixTransform(const unsigned& VAO, Shader& myShader,
 	glDrawElements(GL_TRIANGLES, vertexCount, GL_UNSIGNED_INT, 0);
 }
 
+void drawBox(const unsigned& VAO, Shader& myShader, const unsigned& texture1, const unsigned& texture2, const unsigned vertexCount /*= 180*/)
+{
+	glActiveTexture(GL_TEXTURE0);
+	glBindTexture(GL_TEXTURE_2D, texture1);
+	glActiveTexture(GL_TEXTURE1);
+	glBindTexture(GL_TEXTURE_2D, texture2);
+	myShader.use();
+	myShader.setInt("texture1", 0);
+	myShader.setInt("texture2", 1);
+	glBindVertexArray(VAO);
+	glDrawArrays(GL_TRIANGLES, 0, vertexCount);
+}
+
 unsigned loadTexture(const string textureFilename)
 {
 	unsigned texture;
@@ -254,12 +267,12 @@ void getMVP(glm::mat4& model, glm::mat4& view, glm::mat4& projection, const unsi
 	// 右手坐标，Z轴指向屏幕外，将场景往-Z移动就相当于相机退后
 	view = glm::mat4(1.0f);
 	view = glm::translate(view, glm::vec3(0, 0, -3.0f));
-	// 透视投影矩阵
+	// 透视投影矩阵, 就是相机了
 	projection = glm::mat4(1.0f);
 	projection = glm::perspective(glm::radians(45.0f), 1.0f * screenWidth / screenHeight, 0.1f, 100.0f);
 }
 
-void updateMVP(Shader& myShader, glm::mat4& model, glm::mat4& view, glm::mat4& projection)
+void updateMVP4Shader(Shader& myShader, glm::mat4& model, glm::mat4& view, glm::mat4& projection)
 {
 	unsigned modelLocation = glGetUniformLocation(myShader.ID, "model");
 	glUniformMatrix4fv(modelLocation, 1, GL_FALSE, glm::value_ptr(model));

@@ -8,18 +8,26 @@
 #include "glm/glm.hpp"
 #include "glm/gtc/matrix_transform.hpp"
 #include "glm/gtc/type_ptr.hpp"
-
+// data
+#include "data.h"
+// shader
 #include "shaderClass.h"
 
+#pragma region window
 void framebuffer_size_callback(GLFWwindow* win, const int w, const int h);
 void processInput(GLFWwindow* win);
 
 void init(GLFWwindow*& win, const int screenWidth=800, const int screenHeight=600);
 
 void printMaxVASupport();
+#pragma endregion window
+
 
 // 从程序代码(CPU端)给Shader全局变量提供数据 (02.frag中的uniform vec4 ourColor;)
 void sendColor2Shader(unsigned shaderProgram, const char* uniformShaderVariableName);
+
+
+#pragma region PrepareData and DrawModel
 
 // 错误写法，vertices数组根本传不进来，所以无法正常得到数据，留在这供参考，需要使用下面的模板函数，而模板函数为了不发生链接报错，需要将定义与实现写在一个文件中
 void prepareTriangle(const float* vertices, unsigned& VAO, const unsigned stride=3);
@@ -109,13 +117,43 @@ unsigned int prepareRectangleWithUV(float(&vertices)[M], unsigned int(&indices)[
 	return VAO;
 }
 
+
 void drawRectangleWithTexture(const unsigned& VAO, Shader& myShader, const unsigned& texture, const unsigned vertexCount = 6);
 void drawRectangleWithTextureMix(const unsigned& VAO, Shader& myShader, const unsigned& texture1, const unsigned& texture2, const unsigned vertexCount = 6);
 void drawRectangleWithTextureMixTransform(const unsigned& VAO, Shader& myShader, const unsigned& texture1, const unsigned& texture2, const glm::mat4& trans, const unsigned vertexCount = 6);
 
+template<int N>
+unsigned int prepareBoxData(float(&vertices)[N])
+{
+	// VBO Array Object
+	unsigned int VAO;
+	glGenVertexArrays(1, &VAO);
+	glBindVertexArray(VAO);
+
+	//Vertex Buffer Object
+	unsigned int VBO;
+	glGenBuffers(1, &VBO);
+	glBindBuffer(GL_ARRAY_BUFFER, VBO);
+	//send vertex data to GPU
+	glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STATIC_DRAW);
+	//describe to shader
+	// pos
+	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 5 * sizeof(float), (void*)0);
+	glEnableVertexAttribArray(0);
+	// uv
+	glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, 5 * sizeof(float), (void*)(3 * sizeof(float)));
+	glEnableVertexAttribArray(1);
+	return VAO;
+}
+
+void drawBox(const unsigned& VAO, Shader& myShader, const unsigned& texture1, const unsigned& texture2, const unsigned vertexCount = 180);
+#pragma endregion PrepareData and DrawModel
+
+
 #pragma region Texture
 unsigned loadTexture(const string textureFilename);
 #pragma endregion Texture
+
 
 #pragma region Transformation
 void translateTest();
@@ -125,6 +163,6 @@ void updateTransform(glm::mat4& trans);
 // welcome to 3D
 void getMVP(glm::mat4& model, glm::mat4& view, glm::mat4& projection, const unsigned screenWidth, const unsigned screenHeight);
 // send MVP matrix to vertex shader (3d.vert)
-void updateMVP(Shader& myShader, glm::mat4& model, glm::mat4& view, glm::mat4& projection);
+void updateMVP4Shader(Shader& myShader, glm::mat4& model, glm::mat4& view, glm::mat4& projection);
 
 #pragma endregion Transformation

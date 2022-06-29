@@ -11,7 +11,13 @@ using namespace std;
 #include "util.h"
 #include "shaderClass.h"
 
+// data
+#include "data.h"
+
 #pragma region Data
+// box
+extern float box_vertices[180];
+
 // Vertex Data
 float triangle_vertices[] = {
 	-0.5f, -0.5f, 0.0f,
@@ -86,6 +92,8 @@ int main()
 	VAO_Rectangle = prepareRectangleData(rectangle_vertices, rectangle_indices);
 	unsigned VAO_RectangleWithUV;
 	VAO_RectangleWithUV = prepareRectangleWithUV(rectangle_vertices_with_uv, rectangle_indices);
+	unsigned VAO_Box;
+	VAO_Box = prepareBoxData(box_vertices);
 	// texture
 	unsigned texContainer;
 	texContainer = loadTexture("container.jpg");
@@ -97,6 +105,7 @@ int main()
 	Shader uvShader("uv.vert", "uv.frag");
 	Shader transShader("trans.vert", "trans.frag");
 	Shader _3dShader("3d.vert", "3d.frag");
+	Shader boxShader("box.vert", "box.frag");
 
 	// math lib test
 	translateTest();
@@ -139,19 +148,25 @@ int main()
 		}
 		else if (glfwGetKey(win, GLFW_KEY_5) == GLFW_PRESS)
 		{
-			updateMVP(_3dShader, model, view, projection);
+			updateMVP4Shader(_3dShader, model, view, projection);
 			drawRectangleWithTextureMix(VAO_RectangleWithUV, _3dShader, texContainer, texAwesomeface, 6);
 		}
 		else if (glfwGetKey(win, GLFW_KEY_6) == GLFW_PRESS)
 		{
 			// transform animation
-			model = glm::rotate(model, 0.1f * (float)sin(glfwGetTime()), glm::vec3(1, 0, 0));
-			updateMVP(_3dShader, model, view, projection);
+			model = glm::rotate(model, 0.1f * (float)sin(glfwGetTime()), glm::vec3(0.5f, 0.5f, 0));
+			updateMVP4Shader(_3dShader, model, view, projection);
 			drawRectangleWithTextureMix(VAO_RectangleWithUV, _3dShader, texContainer, texAwesomeface, 6);
+		}
+		else if (glfwGetKey(win, GLFW_KEY_7) == GLFW_PRESS)
+		{
+			model = glm::rotate(model, 0.1f * (float)sin(glfwGetTime()), glm::vec3(0.5f, 0.5f, 0));
+			updateMVP4Shader(boxShader, model, view, projection);
+			drawBox(VAO_Box, boxShader, texContainer, texAwesomeface, 180);
 		}
 		else // 否则默认渲染三角形
 		{
-			drawTriangle(VAO_Triangle, greenShader, 3);
+			//drawTriangle(VAO_Triangle, greenShader, 3);
 			//drawRectangle(VAO_Rectangle, alphaShader, 6);
 			//drawRectangleWithTexture(VAO_RectangleWithUV, uvShader, texContainer, 6);
 			//drawRectangleWithTexture(VAO_RectangleWithUV, uvShader, texAwesomeface, 6);
@@ -159,6 +174,10 @@ int main()
 			// transform animation
 			//drawRectangleWithTextureMixTransform(VAO_RectangleWithUV, transShader, texContainer, texAwesomeface, trans, 6);
 			//updateTransform(trans);
+
+			model = glm::rotate(model, 0.1f * (float)sin(glfwGetTime()), glm::vec3(0.5f, 0.5f, 0));
+			updateMVP4Shader(boxShader, model, view, projection);
+			drawBox(VAO_Box, boxShader, texContainer, texAwesomeface, 180);
 		}
 
 		glfwSwapBuffers(win);
