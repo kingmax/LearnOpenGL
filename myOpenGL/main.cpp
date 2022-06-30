@@ -119,6 +119,14 @@ int main()
 	glm::mat4 projection;
 	getMVP(model, view, projection, screenWidth, screenHeight);
 
+	// handle camera move
+	glm::vec3 camPos = glm::vec3(0, 0, 3.0f);
+	glm::vec3 camFront = glm::vec3(0, 0, -1.0f);
+	glm::vec3 camUp = glm::vec3(0, 1, 0);
+	const float speed = 0.5f;
+	float deltaTime = 0.0f;
+	float lastTime = 0.0f;
+
 	while (!glfwWindowShouldClose(win))
 	{
 		processInput(win);
@@ -176,9 +184,14 @@ int main()
 			updateMVP4Shader(boxShader, model, view, projection);
 			drawBox10(VAO_Box, boxShader, texContainer, texAwesomeface, 180);
 		}
-		else // 否则默认渲染三角形
+		else if (glfwGetKey(win, GLFW_KEY_0) == GLFW_PRESS)
 		{
+			// 渲染三角形
 			drawTriangle(VAO_Triangle, greenShader, 3);
+		}
+		else 
+		{
+			//drawTriangle(VAO_Triangle, greenShader, 3);
 			//drawRectangle(VAO_Rectangle, alphaShader, 6);
 			//drawRectangleWithTexture(VAO_RectangleWithUV, uvShader, texContainer, 6);
 			//drawRectangleWithTexture(VAO_RectangleWithUV, uvShader, texAwesomeface, 6);
@@ -190,6 +203,13 @@ int main()
 			/*model = glm::rotate(model, 0.1f * (float)sin(glfwGetTime()), glm::vec3(0.5f, 0.5f, 0));
 			updateMVP4Shader(boxShader, model, view, projection);
 			drawBox(VAO_Box, boxShader, texContainer, texAwesomeface, 180);*/
+
+			// handle camera
+			getDeltaTime(deltaTime, lastTime);
+			//view = handleCameraView(win, camPos, camFront, camUp, speed);
+			view = handleCameraView(win, camPos, camFront, camUp, speed * deltaTime);
+			updateMVP4Shader(boxShader, model, view, projection);
+			drawBox10(VAO_Box, boxShader, texContainer, texAwesomeface, 180);
 		}
 
 		glfwSwapBuffers(win);

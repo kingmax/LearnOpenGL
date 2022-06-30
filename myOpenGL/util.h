@@ -174,4 +174,9 @@ void updateMVP4Shader(Shader& myShader, glm::mat4& model, glm::mat4& view, glm::
 // camera (view Matrix)
 glm::mat4 getAnimateView(const float radius = 10.0f);
 
+// handle camera
+glm::mat4 handleCameraView(GLFWwindow* win, glm::vec3& cameraPos, glm::vec3& cameraFront, const glm::vec3& cameraUp = glm::vec3(0.0f, 1.0f, 0.0f), const float speed = 0.05f);
+
+void getDeltaTime(float& deltaTime, float& lastTime);
+
 #pragma endregion Transformation

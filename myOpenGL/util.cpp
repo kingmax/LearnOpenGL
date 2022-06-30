@@ -337,3 +337,33 @@ glm::mat4 getAnimateView(const float radius /*= 10.0f*/)
 	return view;
 }
 
+glm::mat4 handleCameraView(GLFWwindow* win, glm::vec3& cameraPos, glm::vec3& cameraFront, const glm::vec3& cameraUp /*= glm::vec3(0.0f, 1.0f, 0.0f)*/, const float speed /*= 0.05f*/)
+{
+	if (glfwGetKey(win, GLFW_KEY_W) == GLFW_PRESS)
+	{
+		cameraPos += speed * cameraFront;
+	}
+	if (glfwGetKey(win, GLFW_KEY_S) == GLFW_PRESS)
+	{
+		cameraPos -= speed * cameraFront;
+	}
+	if (glfwGetKey(win, GLFW_KEY_A) == GLFW_PRESS)
+	{
+		cameraPos += speed * glm::normalize(glm::cross(cameraFront, cameraUp));
+	}
+	if (glfwGetKey(win, GLFW_KEY_D) == GLFW_PRESS)
+	{
+		cameraPos -= speed * glm::normalize(glm::cross(cameraFront, cameraUp));
+	}
+
+	glm::mat4 view = glm::mat4(1.0f);
+	view = glm::lookAt(cameraPos, cameraPos + cameraFront, cameraUp);
+	return view;
+}
+
+void getDeltaTime(float& deltaTime, float& lastTime)
+{
+	float currentTime = glfwGetTime();
+	deltaTime = currentTime - lastTime;
+	lastTime = currentTime;
+}
