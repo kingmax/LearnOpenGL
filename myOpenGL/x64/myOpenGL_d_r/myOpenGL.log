@@ -1,2 +1,5 @@
 ﻿  main.cpp
+E:\git\learnOpenGL\myOpenGL\main.cpp(109,16): warning C4244: “+=”: 从“double”转换到“float”，可能丢失数据
+E:\git\learnOpenGL\myOpenGL\main.cpp(110,18): warning C4244: “+=”: 从“double”转换到“float”，可能丢失数据
+E:\git\learnOpenGL\myOpenGL\main.cpp(132,17): warning C4244: “-=”: 从“double”转换到“float”，可能丢失数据
   myOpenGL.vcxproj -> E:\git\learnOpenGL\myOpenGL\x64\myOpenGL_d_r\myOpenGL.exe

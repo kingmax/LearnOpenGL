@@ -79,6 +79,68 @@ float rectangle_vertices_with_uv[] = {
 
 const unsigned screenWidth = 800;
 const unsigned screenHeight = 600;
+
+// mouse offset handle camera movement
+double lastX = screenWidth / 2;
+double lastY = screenHeight / 2;
+float sensitivity = 0.05f;
+bool isFirstMouse = true;
+float pitch = 0.0f;
+float yaw = 0.0f;
+float roll = 0.0f;
+glm::vec3 gCameraFrontWithMouse;
+void mouse_callback(GLFWwindow* win, double xpos, double ypos)
+{
+	if (isFirstMouse)
+	{
+		lastX = xpos;
+		lastY = ypos;
+		isFirstMouse = false;
+	}
+
+	double xoffset = xpos - lastX;
+	double yoffset = ypos - lastY;
+	lastX = xpos;
+	lastY = ypos;
+
+	xoffset *= sensitivity;
+	yoffset *= sensitivity;
+
+	yaw += xoffset;
+	pitch += yoffset;
+	if (pitch > 89.0f)
+	{
+		pitch = 89.0f;
+	}
+	if (pitch < -89.0f)
+	{
+		pitch = -89.0f;
+	}
+
+	gCameraFrontWithMouse.x = cos(glm::radians(yaw)) * cos(glm::radians(pitch));
+	gCameraFrontWithMouse.y = sin(glm::radians(pitch));
+	gCameraFrontWithMouse.z = sin(glm::radians(yaw)) * cos(glm::radians(pitch));
+	gCameraFrontWithMouse = glm::normalize(gCameraFrontWithMouse);
+}
+
+// mouse scroll handle camera zoom in or out (FOV)
+float fov = 45.0f;
+void scroll_callback(GLFWwindow* win, double xoffset, double yoffset)
+{
+	if (fov >= 1.0f && fov <= 45.0f)
+	{
+		fov -= yoffset;
+	}
+	if (fov <= 1.0f)
+	{
+		fov = 1.0f;
+	}
+	if (fov >= 45.0f)
+	{
+		fov = 45.0f;
+	}
+}
+
 // ÷ÿππ∫Û
 int main()
 {
@@ -126,6 +188,12 @@ int main()
 	const float speed = 0.5f;
 	float deltaTime = 0.0f;
 	float lastTime = 0.0f;
+
+	// with mouse move handle camera
+	glfwSetInputMode(win, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
+	glfwSetCursorPosCallback(win, mouse_callback);
+	// mouse scroll handle camera fov
+	glfwSetScrollCallback(win, scroll_callback);
 
 	while (!glfwWindowShouldClose(win))
 	{
@@ -207,9 +275,13 @@ int main()
 			// handle camera
 			getDeltaTime(deltaTime, lastTime);
 			//view = handleCameraView(win, camPos, camFront, camUp, speed);
-			view = handleCameraView(win, camPos, camFront, camUp, speed * deltaTime);
+			//view = handleCameraView(win, camPos, camFront, camUp, speed * deltaTime);
+			// mouse move handle camFront
+			view = handleCameraView(win, camPos, gCameraFrontWithMouse, camUp, speed * deltaTime);
 			updateMVP4Shader(boxShader, model, view, projection);
 			drawBox10(VAO_Box, boxShader, texContainer, texAwesomeface, 180);
+			// mouse scroll handle camera fov zoom in or zoom out
+			projection = glm::perspective(glm::radians(fov), 1.0f * screenWidth / screenHeight, 0.1f, 100.0f);
 		}
 
 		glfwSwapBuffers(win);
