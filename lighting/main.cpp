@@ -61,7 +61,8 @@ float vertices[] = {
 const unsigned screenWidth = 800;
 const unsigned screenHeight = 600;
 // camera
-Camera camera(glm::vec3(0.0f, 0.0f, 6.0f));
+//Camera camera(glm::vec3(0.0f, 0.0f, 6.0f));
+Camera camera(glm::vec3(-4.5f, 1.8f, 3.5f), glm::vec3(0, 1, 0), -30.0f, -10.0f);
 float lastX = screenWidth / 2.0f;
 float lastY = screenHeight / 2.0f;
 bool firstMouse = true;
@@ -223,6 +224,8 @@ void processInput2(GLFWwindow* window)
 		camera.ProcessKeyboard(LEFT, deltaTime);
 	if (glfwGetKey(window, GLFW_KEY_D) == GLFW_PRESS)
 		camera.ProcessKeyboard(RIGHT, deltaTime);
+
+	//cout << "cam Pos:[" << camera.Position.x << "," << camera.Position.y << "," << camera.Position.z << "] Yaw:" << camera.Yaw << ", Pitch:" << camera.Pitch << endl;
 }
 
 // glfw: whenever the window size changed (by OS or user resize) this callback function executes
