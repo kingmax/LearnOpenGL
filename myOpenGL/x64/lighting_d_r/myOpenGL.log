@@ -1,0 +1,16 @@
+﻿  data.cpp
+  main.cpp
+E:\git\learnOpenGL\myOpenGL\main.cpp(109,16): warning C4244: “+=”: 从“double”转换到“float”，可能丢失数据
+E:\git\learnOpenGL\myOpenGL\main.cpp(110,18): warning C4244: “+=”: 从“double”转换到“float”，可能丢失数据
+E:\git\learnOpenGL\myOpenGL\main.cpp(132,17): warning C4244: “-=”: 从“double”转换到“float”，可能丢失数据
+  shader.cpp
+  shaderClass.cpp
+  stb_image.cpp
+  util.cpp
+E:\git\learnOpenGL\myOpenGL\util.cpp(139,64): warning C4244: “参数”: 从“double”转换到“float”，可能丢失数据
+E:\git\learnOpenGL\myOpenGL\util.cpp(333,13): warning C4244: “初始化”: 从“double”转换到“float”，可能丢失数据
+E:\git\learnOpenGL\myOpenGL\util.cpp(334,13): warning C4244: “初始化”: 从“double”转换到“float”，可能丢失数据
+E:\git\learnOpenGL\myOpenGL\util.cpp(366,20): warning C4244: “初始化”: 从“double”转换到“float”，可能丢失数据
+  正在生成代码...
+  glad.c
+  myOpenGL.vcxproj -> E:\git\learnOpenGL\myOpenGL\x64\lighting_d_r\myOpenGL.exe

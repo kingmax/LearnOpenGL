@@ -16,9 +16,6 @@
     <Filter Include="shader">
       <UniqueIdentifier>{85045862-ccd6-4fe0-8aca-96685debf18a}</UniqueIdentifier>
     </Filter>
-    <Filter Include="data">
-      <UniqueIdentifier>{97ba1098-de4a-4414-b8f0-4b021343e8f4}</UniqueIdentifier>
-    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
