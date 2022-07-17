@@ -117,7 +117,7 @@ float deltaTime = 0.0f;
 float lastFrame = 0.0f;
 
 // lighting
-glm::vec3 lightPos(1.2f, 3.0f, 2.0f);
+glm::vec3 lightPos(1.2f, 2.5f, 1.0f);
 
 glm::vec3 objectColor = glm::vec3(1.0f, 0.5f, 0.31f);
 glm::vec3 lightColor = glm::vec3(1.0f, 1.0f, 1.0f);
@@ -215,6 +215,7 @@ int main(int argc, char* argv[])
 		boxShader.setVec3("objectColor", objectColor);
 		boxShader.setVec3("lightColor", lightColor);
 		boxShader.setVec3("lightPos", lightPos);
+		boxShader.setVec3("camPos", camera.Position);
 		
 		//updateMVP4Shader(boxLightingShader, model, view, projection);
 		//drawBox(vao_box, boxLightingShader, 180);
