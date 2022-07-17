@@ -47,15 +47,21 @@
     <ClInclude Include="util.h">
       <Filter>头文件</Filter>
     </ClInclude>
+    <ClInclude Include="camera.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <None Include="boxLighting.vert">
+    <None Include="box.vert">
       <Filter>shader</Filter>
     </None>
-    <None Include="boxLighting.frag">
+    <None Include="box.frag">
       <Filter>shader</Filter>
     </None>
     <None Include="light.frag">
+      <Filter>shader</Filter>
+    </None>
+    <None Include="light.vert">
       <Filter>shader</Filter>
     </None>
   </ItemGroup>

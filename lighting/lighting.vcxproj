@@ -231,14 +231,16 @@
     <ClCompile Include="util.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="camera.h" />
     <ClInclude Include="data.h" />
     <ClInclude Include="shaderClass.h" />
     <ClInclude Include="util.h" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="boxLighting.frag" />
-    <None Include="boxLighting.vert" />
+    <None Include="box.frag" />
+    <None Include="box.vert" />
     <None Include="light.frag" />
+    <None Include="light.vert" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
