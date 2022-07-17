@@ -1,7 +1,7 @@
 ﻿  main.cpp
   正在生成代码
-  14 of 620 functions ( 2.3%) were compiled, the rest were copied from previous compilation.
+  0 of 620 functions ( 0.0%) were compiled, the rest were copied from previous compilation.
     0 functions were new in current compilation
-    3 functions had inline decision re-evaluated but remain unchanged
+    0 functions had inline decision re-evaluated but remain unchanged
   已完成代码的生成
   lighting.vcxproj -> E:\git\learnOpenGL\myOpenGL\x64\lighting_d_r\lighting.exe

@@ -14,48 +14,93 @@ void scroll_callback(GLFWwindow* window, double xoffset, double yoffset);
 void processInput2(GLFWwindow* window);
 
 extern float box_vertices[180];
+//float vertices[] = {
+//		-0.5f, -0.5f, -0.5f,
+//		 0.5f, -0.5f, -0.5f,
+//		 0.5f,  0.5f, -0.5f,
+//		 0.5f,  0.5f, -0.5f,
+//		-0.5f,  0.5f, -0.5f,
+//		-0.5f, -0.5f, -0.5f,
+//
+//		-0.5f, -0.5f,  0.5f,
+//		 0.5f, -0.5f,  0.5f,
+//		 0.5f,  0.5f,  0.5f,
+//		 0.5f,  0.5f,  0.5f,
+//		-0.5f,  0.5f,  0.5f,
+//		-0.5f, -0.5f,  0.5f,
+//
+//		-0.5f,  0.5f,  0.5f,
+//		-0.5f,  0.5f, -0.5f,
+//		-0.5f, -0.5f, -0.5f,
+//		-0.5f, -0.5f, -0.5f,
+//		-0.5f, -0.5f,  0.5f,
+//		-0.5f,  0.5f,  0.5f,
+//
+//		 0.5f,  0.5f,  0.5f,
+//		 0.5f,  0.5f, -0.5f,
+//		 0.5f, -0.5f, -0.5f,
+//		 0.5f, -0.5f, -0.5f,
+//		 0.5f, -0.5f,  0.5f,
+//		 0.5f,  0.5f,  0.5f,
+//
+//		-0.5f, -0.5f, -0.5f,
+//		 0.5f, -0.5f, -0.5f,
+//		 0.5f, -0.5f,  0.5f,
+//		 0.5f, -0.5f,  0.5f,
+//		-0.5f, -0.5f,  0.5f,
+//		-0.5f, -0.5f, -0.5f,
+//
+//		-0.5f,  0.5f, -0.5f,
+//		 0.5f,  0.5f, -0.5f,
+//		 0.5f,  0.5f,  0.5f,
+//		 0.5f,  0.5f,  0.5f,
+//		-0.5f,  0.5f,  0.5f,
+//		-0.5f,  0.5f, -0.5f,
+//};
+
+// with normal
 float vertices[] = {
-		-0.5f, -0.5f, -0.5f,
-		 0.5f, -0.5f, -0.5f,
-		 0.5f,  0.5f, -0.5f,
-		 0.5f,  0.5f, -0.5f,
-		-0.5f,  0.5f, -0.5f,
-		-0.5f, -0.5f, -0.5f,
+	-0.5f, -0.5f, -0.5f,  0.0f,  0.0f, -1.0f,
+	 0.5f, -0.5f, -0.5f,  0.0f,  0.0f, -1.0f,
+	 0.5f,  0.5f, -0.5f,  0.0f,  0.0f, -1.0f,
+	 0.5f,  0.5f, -0.5f,  0.0f,  0.0f, -1.0f,
+	-0.5f,  0.5f, -0.5f,  0.0f,  0.0f, -1.0f,
+	-0.5f, -0.5f, -0.5f,  0.0f,  0.0f, -1.0f,
 
-		-0.5f, -0.5f,  0.5f,
-		 0.5f, -0.5f,  0.5f,
-		 0.5f,  0.5f,  0.5f,
-		 0.5f,  0.5f,  0.5f,
-		-0.5f,  0.5f,  0.5f,
-		-0.5f, -0.5f,  0.5f,
+	-0.5f, -0.5f,  0.5f,  0.0f,  0.0f, 1.0f,
+	 0.5f, -0.5f,  0.5f,  0.0f,  0.0f, 1.0f,
+	 0.5f,  0.5f,  0.5f,  0.0f,  0.0f, 1.0f,
+	 0.5f,  0.5f,  0.5f,  0.0f,  0.0f, 1.0f,
+	-0.5f,  0.5f,  0.5f,  0.0f,  0.0f, 1.0f,
+	-0.5f, -0.5f,  0.5f,  0.0f,  0.0f, 1.0f,
 
-		-0.5f,  0.5f,  0.5f,
-		-0.5f,  0.5f, -0.5f,
-		-0.5f, -0.5f, -0.5f,
-		-0.5f, -0.5f, -0.5f,
-		-0.5f, -0.5f,  0.5f,
-		-0.5f,  0.5f,  0.5f,
+	-0.5f,  0.5f,  0.5f, -1.0f,  0.0f,  0.0f,
+	-0.5f,  0.5f, -0.5f, -1.0f,  0.0f,  0.0f,
+	-0.5f, -0.5f, -0.5f, -1.0f,  0.0f,  0.0f,
+	-0.5f, -0.5f, -0.5f, -1.0f,  0.0f,  0.0f,
+	-0.5f, -0.5f,  0.5f, -1.0f,  0.0f,  0.0f,
+	-0.5f,  0.5f,  0.5f, -1.0f,  0.0f,  0.0f,
 
-		 0.5f,  0.5f,  0.5f,
-		 0.5f,  0.5f, -0.5f,
-		 0.5f, -0.5f, -0.5f,
-		 0.5f, -0.5f, -0.5f,
-		 0.5f, -0.5f,  0.5f,
-		 0.5f,  0.5f,  0.5f,
+	 0.5f,  0.5f,  0.5f,  1.0f,  0.0f,  0.0f,
+	 0.5f,  0.5f, -0.5f,  1.0f,  0.0f,  0.0f,
+	 0.5f, -0.5f, -0.5f,  1.0f,  0.0f,  0.0f,
+	 0.5f, -0.5f, -0.5f,  1.0f,  0.0f,  0.0f,
+	 0.5f, -0.5f,  0.5f,  1.0f,  0.0f,  0.0f,
+	 0.5f,  0.5f,  0.5f,  1.0f,  0.0f,  0.0f,
 
-		-0.5f, -0.5f, -0.5f,
-		 0.5f, -0.5f, -0.5f,
-		 0.5f, -0.5f,  0.5f,
-		 0.5f, -0.5f,  0.5f,
-		-0.5f, -0.5f,  0.5f,
-		-0.5f, -0.5f, -0.5f,
+	-0.5f, -0.5f, -0.5f,  0.0f, -1.0f,  0.0f,
+	 0.5f, -0.5f, -0.5f,  0.0f, -1.0f,  0.0f,
+	 0.5f, -0.5f,  0.5f,  0.0f, -1.0f,  0.0f,
+	 0.5f, -0.5f,  0.5f,  0.0f, -1.0f,  0.0f,
+	-0.5f, -0.5f,  0.5f,  0.0f, -1.0f,  0.0f,
+	-0.5f, -0.5f, -0.5f,  0.0f, -1.0f,  0.0f,
 
-		-0.5f,  0.5f, -0.5f,
-		 0.5f,  0.5f, -0.5f,
-		 0.5f,  0.5f,  0.5f,
-		 0.5f,  0.5f,  0.5f,
-		-0.5f,  0.5f,  0.5f,
-		-0.5f,  0.5f, -0.5f,
+	-0.5f,  0.5f, -0.5f,  0.0f,  1.0f,  0.0f,
+	 0.5f,  0.5f, -0.5f,  0.0f,  1.0f,  0.0f,
+	 0.5f,  0.5f,  0.5f,  0.0f,  1.0f,  0.0f,
+	 0.5f,  0.5f,  0.5f,  0.0f,  1.0f,  0.0f,
+	-0.5f,  0.5f,  0.5f,  0.0f,  1.0f,  0.0f,
+	-0.5f,  0.5f, -0.5f,  0.0f,  1.0f,  0.0f
 };
 
 const unsigned screenWidth = 800;
@@ -72,7 +117,10 @@ float deltaTime = 0.0f;
 float lastFrame = 0.0f;
 
 // lighting
-glm::vec3 lightPos(2.0f, 1.0f, 2.0f);
+glm::vec3 lightPos(1.2f, 3.0f, 2.0f);
+
+glm::vec3 objectColor = glm::vec3(1.0f, 0.5f, 0.31f);
+glm::vec3 lightColor = glm::vec3(1.0f, 1.0f, 1.0f);
 
 int main(int argc, char* argv[])
 {
@@ -125,13 +173,17 @@ int main(int argc, char* argv[])
 	glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STATIC_DRAW);
 
 	glBindVertexArray(vao_box);
-	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(float), (void*)0);
+	// pos
+	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 6 * sizeof(float), (void*)0);
+	glEnableVertexAttribArray(1);
+	// normal
+	glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 6 * sizeof(float), (void*)(3*sizeof(float)));
 	glEnableVertexAttribArray(0);
 
 	glGenVertexArrays(1, &vao_light);
 	glBindVertexArray(vao_light);
 	glBindBuffer(GL_ARRAY_BUFFER, VBO); // same data as before (vertices)
-	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(float), (void*)0);
+	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 6 * sizeof(float), (void*)0);
 	glEnableVertexAttribArray(0);
 
 	glm::mat4 model;
@@ -139,9 +191,6 @@ int main(int argc, char* argv[])
 	glm::mat4 projection;
 	getMVP(model, view, projection, screenWidth, screenHeight);
 
-	glm::vec3 objectColor = glm::vec3(1.0f, 0.5f, 0.31f);
-	glm::vec3 lightColor = glm::vec3(1.0f, 1.0f, 1.0f);
-	glm::vec3 lightPos(1.2f, 1.0f, 2.0f);
 	glm::mat4 model_light = glm::mat4(1.0f);
 	model_light = glm::translate(model_light, lightPos);
 	model_light = glm::scale(model_light, glm::vec3(0.05f));
@@ -165,6 +214,7 @@ int main(int argc, char* argv[])
 		boxShader.use();
 		boxShader.setVec3("objectColor", objectColor);
 		boxShader.setVec3("lightColor", lightColor);
+		boxShader.setVec3("lightPos", lightPos);
 		
 		//updateMVP4Shader(boxLightingShader, model, view, projection);
 		//drawBox(vao_box, boxLightingShader, 180);
