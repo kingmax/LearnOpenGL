@@ -1,4 +1,4 @@
-#version 460 core
+#version 330 core
 
 in vec3 color;	// from vert shader
 out vec4 fragColor;

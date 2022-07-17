@@ -162,6 +162,7 @@ int main()
 	unsigned texAwesomeface;
 	texAwesomeface = loadTexture("awesomeface.jpg");
 	// preparing shader
+	Shader _01Shader("01.vert", "01.frag");
 	Shader greenShader("02.vert", "02.frag");
 	Shader alphaShader("03.vert", "03.frag");
 	Shader uvShader("uv.vert", "uv.frag");
@@ -256,6 +257,7 @@ int main()
 		{
 			// äÖÈ¾Èý½ÇÐÎ
 			drawTriangle(VAO_Triangle, greenShader, 3);
+			//drawTriangle(VAO_Triangle, _01Shader, 3);
 		}
 		else 
 		{
