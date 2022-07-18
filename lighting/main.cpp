@@ -117,7 +117,7 @@ float deltaTime = 0.0f;
 float lastFrame = 0.0f;
 
 // lighting
-glm::vec3 lightPos(1.2f, 2.5f, 1.0f);
+glm::vec3 lightPos(0.9f, -0.2f, 1.2f);
 
 glm::vec3 objectColor = glm::vec3(1.0f, 0.5f, 0.31f);
 glm::vec3 lightColor = glm::vec3(1.0f, 1.0f, 1.0f);
@@ -212,11 +212,27 @@ int main(int argc, char* argv[])
 		//glEnable(GL_DEPTH_TEST);
 
 		boxShader.use();
-		boxShader.setVec3("objectColor", objectColor);
-		boxShader.setVec3("lightColor", lightColor);
-		boxShader.setVec3("lightPos", lightPos);
+		//boxShader.setVec3("objectColor", objectColor);
+		//boxShader.setVec3("lightColor", lightColor);
+		//boxShader.setVec3("lightPos", lightPos);
 		boxShader.setVec3("camPos", camera.Position);
-		
+		boxShader.setVec3("material.ambient", 1.0f, 0.5f, 0.31f);
+		boxShader.setVec3("material.diffuse", 1.0f, 0.5f, 0.31f);
+		boxShader.setVec3("material.specular", 0.5f, 0.5f, 0.5f);
+		boxShader.setFloat("material.shininess", 32.0f);
+		/*boxShader.setVec3("light.ambient", 0.2f, 0.2f, 0.2f);
+		boxShader.setVec3("light.diffuse", 0.5f, 0.5f, 0.5f);*/
+		boxShader.setVec3("light.specular", 1.0f, 1.0f, 1.0f);
+		boxShader.setVec3("light.position", lightPos);
+		// change light color
+		lightColor.x = sin(glfwGetTime() * 2.0f);
+		lightColor.y = sin(glfwGetTime() * 0.7f);
+		lightColor.z = sin(glfwGetTime() * 1.3f);
+		glm::vec3 diffuseColor = lightColor * glm::vec3(0.5f);
+		glm::vec3 ambientColor = diffuseColor * glm::vec3(0.2f);
+		boxShader.setVec3("light.ambient", ambientColor);
+		boxShader.setVec3("light.diffuse", diffuseColor);
+
 		//updateMVP4Shader(boxLightingShader, model, view, projection);
 		//drawBox(vao_box, boxLightingShader, 180);
 

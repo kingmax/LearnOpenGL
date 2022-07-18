@@ -1,6 +1,30 @@
-﻿  main.cpp
+﻿  data.cpp
+  main.cpp
+E:\git\learnOpenGL\lighting\main.cpp(228,21): warning C4244: “=”: 从“double”转换到“T”，可能丢失数据
+          with
+          [
+              T=float
+          ]
+E:\git\learnOpenGL\lighting\main.cpp(229,21): warning C4244: “=”: 从“double”转换到“T”，可能丢失数据
+          with
+          [
+              T=float
+          ]
+E:\git\learnOpenGL\lighting\main.cpp(230,21): warning C4244: “=”: 从“double”转换到“T”，可能丢失数据
+          with
+          [
+              T=float
+          ]
+  shaderClass.cpp
+  stb_image.cpp
+  util.cpp
+E:\git\learnOpenGL\lighting\util.cpp(139,64): warning C4244: “参数”: 从“double”转换到“float”，可能丢失数据
+E:\git\learnOpenGL\lighting\util.cpp(340,13): warning C4244: “初始化”: 从“double”转换到“float”，可能丢失数据
+E:\git\learnOpenGL\lighting\util.cpp(341,13): warning C4244: “初始化”: 从“double”转换到“float”，可能丢失数据
+E:\git\learnOpenGL\lighting\util.cpp(373,20): warning C4244: “初始化”: 从“double”转换到“float”，可能丢失数据
+  glad.c
   正在生成代码
-  Previous IPDB and IOBJ mismatch, fall back to full compilation.
-  All 620 functions were compiled because no usable IPDB/IOBJ from previous compilation was found.
+  Previous IPDB not found, fall back to full compilation.
+  All 622 functions were compiled because no usable IPDB/IOBJ from previous compilation was found.
   已完成代码的生成
   lighting.vcxproj -> E:\git\learnOpenGL\myOpenGL\x64\lighting_d_r\lighting.exe
