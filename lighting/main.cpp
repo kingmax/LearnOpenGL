@@ -59,48 +59,94 @@ extern float box_vertices[180];
 //};
 
 // with normal
+//float vertices[] = {
+//	-0.5f, -0.5f, -0.5f,  0.0f,  0.0f, -1.0f,
+//	 0.5f, -0.5f, -0.5f,  0.0f,  0.0f, -1.0f,
+//	 0.5f,  0.5f, -0.5f,  0.0f,  0.0f, -1.0f,
+//	 0.5f,  0.5f, -0.5f,  0.0f,  0.0f, -1.0f,
+//	-0.5f,  0.5f, -0.5f,  0.0f,  0.0f, -1.0f,
+//	-0.5f, -0.5f, -0.5f,  0.0f,  0.0f, -1.0f,
+//
+//	-0.5f, -0.5f,  0.5f,  0.0f,  0.0f, 1.0f,
+//	 0.5f, -0.5f,  0.5f,  0.0f,  0.0f, 1.0f,
+//	 0.5f,  0.5f,  0.5f,  0.0f,  0.0f, 1.0f,
+//	 0.5f,  0.5f,  0.5f,  0.0f,  0.0f, 1.0f,
+//	-0.5f,  0.5f,  0.5f,  0.0f,  0.0f, 1.0f,
+//	-0.5f, -0.5f,  0.5f,  0.0f,  0.0f, 1.0f,
+//
+//	-0.5f,  0.5f,  0.5f, -1.0f,  0.0f,  0.0f,
+//	-0.5f,  0.5f, -0.5f, -1.0f,  0.0f,  0.0f,
+//	-0.5f, -0.5f, -0.5f, -1.0f,  0.0f,  0.0f,
+//	-0.5f, -0.5f, -0.5f, -1.0f,  0.0f,  0.0f,
+//	-0.5f, -0.5f,  0.5f, -1.0f,  0.0f,  0.0f,
+//	-0.5f,  0.5f,  0.5f, -1.0f,  0.0f,  0.0f,
+//
+//	 0.5f,  0.5f,  0.5f,  1.0f,  0.0f,  0.0f,
+//	 0.5f,  0.5f, -0.5f,  1.0f,  0.0f,  0.0f,
+//	 0.5f, -0.5f, -0.5f,  1.0f,  0.0f,  0.0f,
+//	 0.5f, -0.5f, -0.5f,  1.0f,  0.0f,  0.0f,
+//	 0.5f, -0.5f,  0.5f,  1.0f,  0.0f,  0.0f,
+//	 0.5f,  0.5f,  0.5f,  1.0f,  0.0f,  0.0f,
+//
+//	-0.5f, -0.5f, -0.5f,  0.0f, -1.0f,  0.0f,
+//	 0.5f, -0.5f, -0.5f,  0.0f, -1.0f,  0.0f,
+//	 0.5f, -0.5f,  0.5f,  0.0f, -1.0f,  0.0f,
+//	 0.5f, -0.5f,  0.5f,  0.0f, -1.0f,  0.0f,
+//	-0.5f, -0.5f,  0.5f,  0.0f, -1.0f,  0.0f,
+//	-0.5f, -0.5f, -0.5f,  0.0f, -1.0f,  0.0f,
+//
+//	-0.5f,  0.5f, -0.5f,  0.0f,  1.0f,  0.0f,
+//	 0.5f,  0.5f, -0.5f,  0.0f,  1.0f,  0.0f,
+//	 0.5f,  0.5f,  0.5f,  0.0f,  1.0f,  0.0f,
+//	 0.5f,  0.5f,  0.5f,  0.0f,  1.0f,  0.0f,
+//	-0.5f,  0.5f,  0.5f,  0.0f,  1.0f,  0.0f,
+//	-0.5f,  0.5f, -0.5f,  0.0f,  1.0f,  0.0f
+//};
+
+// with normal, uv
 float vertices[] = {
-	-0.5f, -0.5f, -0.5f,  0.0f,  0.0f, -1.0f,
-	 0.5f, -0.5f, -0.5f,  0.0f,  0.0f, -1.0f,
-	 0.5f,  0.5f, -0.5f,  0.0f,  0.0f, -1.0f,
-	 0.5f,  0.5f, -0.5f,  0.0f,  0.0f, -1.0f,
-	-0.5f,  0.5f, -0.5f,  0.0f,  0.0f, -1.0f,
-	-0.5f, -0.5f, -0.5f,  0.0f,  0.0f, -1.0f,
+	// positions          // normals           // texture coords
+	-0.5f, -0.5f, -0.5f,  0.0f,  0.0f, -1.0f,  0.0f, 0.0f,
+	 0.5f, -0.5f, -0.5f,  0.0f,  0.0f, -1.0f,  1.0f, 0.0f,
+	 0.5f,  0.5f, -0.5f,  0.0f,  0.0f, -1.0f,  1.0f, 1.0f,
+	 0.5f,  0.5f, -0.5f,  0.0f,  0.0f, -1.0f,  1.0f, 1.0f,
+	-0.5f,  0.5f, -0.5f,  0.0f,  0.0f, -1.0f,  0.0f, 1.0f,
+	-0.5f, -0.5f, -0.5f,  0.0f,  0.0f, -1.0f,  0.0f, 0.0f,
 
-	-0.5f, -0.5f,  0.5f,  0.0f,  0.0f, 1.0f,
-	 0.5f, -0.5f,  0.5f,  0.0f,  0.0f, 1.0f,
-	 0.5f,  0.5f,  0.5f,  0.0f,  0.0f, 1.0f,
-	 0.5f,  0.5f,  0.5f,  0.0f,  0.0f, 1.0f,
-	-0.5f,  0.5f,  0.5f,  0.0f,  0.0f, 1.0f,
-	-0.5f, -0.5f,  0.5f,  0.0f,  0.0f, 1.0f,
+	-0.5f, -0.5f,  0.5f,  0.0f,  0.0f, 1.0f,   0.0f, 0.0f,
+	 0.5f, -0.5f,  0.5f,  0.0f,  0.0f, 1.0f,   1.0f, 0.0f,
+	 0.5f,  0.5f,  0.5f,  0.0f,  0.0f, 1.0f,   1.0f, 1.0f,
+	 0.5f,  0.5f,  0.5f,  0.0f,  0.0f, 1.0f,   1.0f, 1.0f,
+	-0.5f,  0.5f,  0.5f,  0.0f,  0.0f, 1.0f,   0.0f, 1.0f,
+	-0.5f, -0.5f,  0.5f,  0.0f,  0.0f, 1.0f,   0.0f, 0.0f,
 
-	-0.5f,  0.5f,  0.5f, -1.0f,  0.0f,  0.0f,
-	-0.5f,  0.5f, -0.5f, -1.0f,  0.0f,  0.0f,
-	-0.5f, -0.5f, -0.5f, -1.0f,  0.0f,  0.0f,
-	-0.5f, -0.5f, -0.5f, -1.0f,  0.0f,  0.0f,
-	-0.5f, -0.5f,  0.5f, -1.0f,  0.0f,  0.0f,
-	-0.5f,  0.5f,  0.5f, -1.0f,  0.0f,  0.0f,
+	-0.5f,  0.5f,  0.5f, -1.0f,  0.0f,  0.0f,  1.0f, 0.0f,
+	-0.5f,  0.5f, -0.5f, -1.0f,  0.0f,  0.0f,  1.0f, 1.0f,
+	-0.5f, -0.5f, -0.5f, -1.0f,  0.0f,  0.0f,  0.0f, 1.0f,
+	-0.5f, -0.5f, -0.5f, -1.0f,  0.0f,  0.0f,  0.0f, 1.0f,
+	-0.5f, -0.5f,  0.5f, -1.0f,  0.0f,  0.0f,  0.0f, 0.0f,
+	-0.5f,  0.5f,  0.5f, -1.0f,  0.0f,  0.0f,  1.0f, 0.0f,
 
-	 0.5f,  0.5f,  0.5f,  1.0f,  0.0f,  0.0f,
-	 0.5f,  0.5f, -0.5f,  1.0f,  0.0f,  0.0f,
-	 0.5f, -0.5f, -0.5f,  1.0f,  0.0f,  0.0f,
-	 0.5f, -0.5f, -0.5f,  1.0f,  0.0f,  0.0f,
-	 0.5f, -0.5f,  0.5f,  1.0f,  0.0f,  0.0f,
-	 0.5f,  0.5f,  0.5f,  1.0f,  0.0f,  0.0f,
+	 0.5f,  0.5f,  0.5f,  1.0f,  0.0f,  0.0f,  1.0f, 0.0f,
+	 0.5f,  0.5f, -0.5f,  1.0f,  0.0f,  0.0f,  1.0f, 1.0f,
+	 0.5f, -0.5f, -0.5f,  1.0f,  0.0f,  0.0f,  0.0f, 1.0f,
+	 0.5f, -0.5f, -0.5f,  1.0f,  0.0f,  0.0f,  0.0f, 1.0f,
+	 0.5f, -0.5f,  0.5f,  1.0f,  0.0f,  0.0f,  0.0f, 0.0f,
+	 0.5f,  0.5f,  0.5f,  1.0f,  0.0f,  0.0f,  1.0f, 0.0f,
 
-	-0.5f, -0.5f, -0.5f,  0.0f, -1.0f,  0.0f,
-	 0.5f, -0.5f, -0.5f,  0.0f, -1.0f,  0.0f,
-	 0.5f, -0.5f,  0.5f,  0.0f, -1.0f,  0.0f,
-	 0.5f, -0.5f,  0.5f,  0.0f, -1.0f,  0.0f,
-	-0.5f, -0.5f,  0.5f,  0.0f, -1.0f,  0.0f,
-	-0.5f, -0.5f, -0.5f,  0.0f, -1.0f,  0.0f,
+	-0.5f, -0.5f, -0.5f,  0.0f, -1.0f,  0.0f,  0.0f, 1.0f,
+	 0.5f, -0.5f, -0.5f,  0.0f, -1.0f,  0.0f,  1.0f, 1.0f,
+	 0.5f, -0.5f,  0.5f,  0.0f, -1.0f,  0.0f,  1.0f, 0.0f,
+	 0.5f, -0.5f,  0.5f,  0.0f, -1.0f,  0.0f,  1.0f, 0.0f,
+	-0.5f, -0.5f,  0.5f,  0.0f, -1.0f,  0.0f,  0.0f, 0.0f,
+	-0.5f, -0.5f, -0.5f,  0.0f, -1.0f,  0.0f,  0.0f, 1.0f,
 
-	-0.5f,  0.5f, -0.5f,  0.0f,  1.0f,  0.0f,
-	 0.5f,  0.5f, -0.5f,  0.0f,  1.0f,  0.0f,
-	 0.5f,  0.5f,  0.5f,  0.0f,  1.0f,  0.0f,
-	 0.5f,  0.5f,  0.5f,  0.0f,  1.0f,  0.0f,
-	-0.5f,  0.5f,  0.5f,  0.0f,  1.0f,  0.0f,
-	-0.5f,  0.5f, -0.5f,  0.0f,  1.0f,  0.0f
+	-0.5f,  0.5f, -0.5f,  0.0f,  1.0f,  0.0f,  0.0f, 1.0f,
+	 0.5f,  0.5f, -0.5f,  0.0f,  1.0f,  0.0f,  1.0f, 1.0f,
+	 0.5f,  0.5f,  0.5f,  0.0f,  1.0f,  0.0f,  1.0f, 0.0f,
+	 0.5f,  0.5f,  0.5f,  0.0f,  1.0f,  0.0f,  1.0f, 0.0f,
+	-0.5f,  0.5f,  0.5f,  0.0f,  1.0f,  0.0f,  0.0f, 0.0f,
+	-0.5f,  0.5f, -0.5f,  0.0f,  1.0f,  0.0f,  0.0f, 1.0f
 };
 
 const unsigned screenWidth = 800;
@@ -165,6 +211,9 @@ int main(int argc, char* argv[])
 	Shader boxShader("box.vert", "box.frag");
 	Shader lightShader("light.vert", "light.frag");
 
+	unsigned diffuseMap = loadTexture("container2.jpg");
+	unsigned specularMap = loadTexture("container2_specular.jpg");
+
 	unsigned int VBO, vao_box, vao_light;
 	glGenVertexArrays(1, &vao_box);
 
@@ -174,16 +223,19 @@ int main(int argc, char* argv[])
 
 	glBindVertexArray(vao_box);
 	// pos
-	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 6 * sizeof(float), (void*)0);
-	glEnableVertexAttribArray(1);
-	// normal
-	glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 6 * sizeof(float), (void*)(3*sizeof(float)));
+	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 8 * sizeof(float), (void*)0);
 	glEnableVertexAttribArray(0);
+	// normal
+	glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 8 * sizeof(float), (void*)(3*sizeof(float)));
+	glEnableVertexAttribArray(1);
+	// uv
+	glVertexAttribPointer(2, 3, GL_FLOAT, GL_FALSE, 8 * sizeof(float), (void*)(6*sizeof(float)));
+	glEnableVertexAttribArray(2);
 
 	glGenVertexArrays(1, &vao_light);
 	glBindVertexArray(vao_light);
 	glBindBuffer(GL_ARRAY_BUFFER, VBO); // same data as before (vertices)
-	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 6 * sizeof(float), (void*)0);
+	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 8 * sizeof(float), (void*)0);
 	glEnableVertexAttribArray(0);
 
 	glm::mat4 model;
@@ -216,9 +268,9 @@ int main(int argc, char* argv[])
 		//boxShader.setVec3("lightColor", lightColor);
 		//boxShader.setVec3("lightPos", lightPos);
 		boxShader.setVec3("camPos", camera.Position);
-		boxShader.setVec3("material.ambient", 1.0f, 0.5f, 0.31f);
-		boxShader.setVec3("material.diffuse", 1.0f, 0.5f, 0.31f);
-		boxShader.setVec3("material.specular", 0.5f, 0.5f, 0.5f);
+		//boxShader.setVec3("material.ambient", 1.0f, 0.5f, 0.31f);
+		//boxShader.setVec3("material.diffuse", 1.0f, 0.5f, 0.31f);
+		//boxShader.setVec3("material.specular", 0.5f, 0.5f, 0.5f);
 		boxShader.setFloat("material.shininess", 32.0f);
 		/*boxShader.setVec3("light.ambient", 0.2f, 0.2f, 0.2f);
 		boxShader.setVec3("light.diffuse", 0.5f, 0.5f, 0.5f);*/
@@ -232,6 +284,13 @@ int main(int argc, char* argv[])
 		glm::vec3 ambientColor = diffuseColor * glm::vec3(0.2f);
 		boxShader.setVec3("light.ambient", ambientColor);
 		boxShader.setVec3("light.diffuse", diffuseColor);
+		// using texture
+		boxShader.setInt("material.diffuse", 0);
+		glActiveTexture(GL_TEXTURE0);
+		glBindTexture(GL_TEXTURE_2D, diffuseMap);
+		boxShader.setInt("material.specular", 1);
+		glActiveTexture(GL_TEXTURE1);
+		glBindTexture(GL_TEXTURE_2D, specularMap);
 
 		//updateMVP4Shader(boxLightingShader, model, view, projection);
 		//drawBox(vao_box, boxLightingShader, 180);
