@@ -241,6 +241,7 @@
     <None Include="box.vert" />
     <None Include="light.frag" />
     <None Include="light.vert" />
+    <None Include="mLightingBox.frag" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

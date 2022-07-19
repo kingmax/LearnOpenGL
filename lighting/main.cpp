@@ -163,6 +163,14 @@ glm::vec3 cubePositions[] = {
 	glm::vec3(-1.3f,  1.0f, -1.5f)
 };
 
+// positions of the point lights
+glm::vec3 pointLightPositions[] = {
+	glm::vec3(0.7f,  0.2f,  2.0f),
+	glm::vec3(2.3f, -3.3f, -4.0f),
+	glm::vec3(-4.0f,  2.0f, -12.0f),
+	glm::vec3(0.0f,  0.0f, -3.0f)
+};
+
 const unsigned screenWidth = 800;
 const unsigned screenHeight = 600;
 // camera
@@ -224,18 +232,14 @@ int main(int argc, char* argv[])
 	// -----------------------------
 	glEnable(GL_DEPTH_TEST);
 
-	Shader boxShader("box.vert", "box.frag");
+	//Shader boxShader("box.vert", "box.frag");
+	Shader boxShader("box.vert", "mLightingBox.frag");
 	Shader lightShader("light.vert", "light.frag");
 
 	unsigned diffuseMap = loadTexture("container2.jpg");
 	unsigned specularMap = loadTexture("container2_specular.jpg");
-	// using texture
-	boxShader.setInt("material.diffuse", 0);
-	glActiveTexture(GL_TEXTURE0);
-	glBindTexture(GL_TEXTURE_2D, diffuseMap);
-	boxShader.setInt("material.specular", 1);
-	glActiveTexture(GL_TEXTURE1);
-	glBindTexture(GL_TEXTURE_2D, specularMap);
+	//unsigned awesomeface = loadTexture("awesomeface.jpg");
+	unsigned awesomeface = loadTexture("girl.png");
 
 	unsigned int VBO, vao_box, vao_light;
 	glGenVertexArrays(1, &vao_box);
@@ -301,10 +305,14 @@ int main(int argc, char* argv[])
 		//boxShader.setVec3("light.position", lightPos);
 		
 		// with light attenuation, ref: https://wiki.ogre3d.org/tiki-index.php?page=-Point+Light+Attenuation
-		// light range dist = 100M
-		boxShader.setFloat("light.constant", 1.0f);
-		boxShader.setFloat("light.linear", 0.045f);
-		boxShader.setFloat("light.quadratic", 0.0075f);
+		// light range dist = 600M
+		/*boxShader.setFloat("light.constant", 1.0f);
+		boxShader.setFloat("light.linear", 0.007f);
+		boxShader.setFloat("light.quadratic", 0.0002f);*/
+
+		boxShader.setFloat("spotLight.constant", 1.0f);
+		boxShader.setFloat("spotLight.linear", 0.007f);
+		boxShader.setFloat("spotLight.quadratic", 0.0002f);
 
 		// change light color with time
 		/*lightColor.x = sin(glfwGetTime() * 2.0f);
@@ -316,21 +324,95 @@ int main(int argc, char* argv[])
 		boxShader.setVec3("light.diffuse", diffuseColor);*/
 
 		// light properties
-		boxShader.setVec3("light.ambient", 0.2f, 0.2f, 0.2f);
+		/*boxShader.setVec3("light.ambient", 0.2f, 0.2f, 0.2f);
 		boxShader.setVec3("light.diffuse", 0.5f, 0.5f, 0.5f);
-		boxShader.setVec3("light.specular", 1.0f, 1.0f, 1.0f);
+		boxShader.setVec3("light.specular", 1.0f, 1.0f, 1.0f);*/
+		boxShader.setVec3("spotLight.ambient", 0.2f, 0.2f, 0.2f);
+		boxShader.setVec3("spotLight.diffuse", 0.5f, 0.5f, 0.5f);
+		boxShader.setVec3("spotLight.specular", 1.0f, 1.0f, 1.0f);
 
 		// set direction light direction
 		//boxShader.setVec3("light.direction", -0.2f, -1.0f, -0.3f);
 
 		// Flash Light
-		boxShader.setVec3("light.position", camera.Position);
+		/*boxShader.setVec3("light.position", camera.Position);
 		boxShader.setVec3("light.direction", camera.Front);
 		boxShader.setFloat("light.cutOff", glm::cos(glm::radians(12.5f)));
-		boxShader.setFloat("light.outerCutOff", glm::cos(glm::radians(15.5f)));
+		boxShader.setFloat("light.outerCutOff", glm::cos(glm::radians(15.5f)));*/
+		boxShader.setVec3("spotLight.position", camera.Position);
+		boxShader.setVec3("spotLight.direction", camera.Front);
+		boxShader.setFloat("spotLight.cutOff", glm::cos(glm::radians(12.5f)));
+		boxShader.setFloat("spotLight.outerCutOff", glm::cos(glm::radians(15.5f)));
 
 		//updateMVP4Shader(boxLightingShader, model, view, projection);
 		//drawBox(vao_box, boxLightingShader, 180);
+
+		/*
+		   Here we set all the uniforms for the 5/6 types of lights we have. We have to set them manually and index
+		   the proper PointLight struct in the array to set each uniform variable. This can be done more code-friendly
+		   by defining light types as classes and set their values in there, or by using a more efficient uniform approach
+		   by using 'Uniform buffer objects', but that is something we'll discuss in the 'Advanced GLSL' tutorial.
+		*/
+		// directional light
+		boxShader.setVec3("dirLight.direction", -0.2f, -1.0f, -0.3f);
+		boxShader.setVec3("dirLight.ambient", 0.05f, 0.05f, 0.05f);
+		boxShader.setVec3("dirLight.diffuse", 0.4f, 0.4f, 0.4f);
+		boxShader.setVec3("dirLight.specular", 0.5f, 0.5f, 0.5f);
+		// point light 1
+		boxShader.setVec3("pointLights[0].position", pointLightPositions[0]);
+		boxShader.setVec3("pointLights[0].ambient", 0.05f, 0.05f, 0.05f);
+		boxShader.setVec3("pointLights[0].diffuse", 0.8f, 0.8f, 0.8f);
+		boxShader.setVec3("pointLights[0].specular", 1.0f, 1.0f, 1.0f);
+		boxShader.setFloat("pointLights[0].constant", 1.0f);
+		boxShader.setFloat("pointLights[0].linear", 0.09f);
+		boxShader.setFloat("pointLights[0].quadratic", 0.032f);
+		// point light 2
+		boxShader.setVec3("pointLights[1].position", pointLightPositions[1]);
+		boxShader.setVec3("pointLights[1].ambient", 0.05f, 0.05f, 0.05f);
+		boxShader.setVec3("pointLights[1].diffuse", 0.8f, 0.8f, 0.8f);
+		boxShader.setVec3("pointLights[1].specular", 1.0f, 1.0f, 1.0f);
+		boxShader.setFloat("pointLights[1].constant", 1.0f);
+		boxShader.setFloat("pointLights[1].linear", 0.09f);
+		boxShader.setFloat("pointLights[1].quadratic", 0.032f);
+		// point light 3
+		boxShader.setVec3("pointLights[2].position", pointLightPositions[2]);
+		boxShader.setVec3("pointLights[2].ambient", 0.05f, 0.05f, 0.05f);
+		boxShader.setVec3("pointLights[2].diffuse", 0.8f, 0.8f, 0.8f);
+		boxShader.setVec3("pointLights[2].specular", 1.0f, 1.0f, 1.0f);
+		boxShader.setFloat("pointLights[2].constant", 1.0f);
+		boxShader.setFloat("pointLights[2].linear", 0.09f);
+		boxShader.setFloat("pointLights[2].quadratic", 0.032f);
+		// point light 4
+		boxShader.setVec3("pointLights[3].position", pointLightPositions[3]);
+		boxShader.setVec3("pointLights[3].ambient", 0.05f, 0.05f, 0.05f);
+		boxShader.setVec3("pointLights[3].diffuse", 0.8f, 0.8f, 0.8f);
+		boxShader.setVec3("pointLights[3].specular", 1.0f, 1.0f, 1.0f);
+		boxShader.setFloat("pointLights[3].constant", 1.0f);
+		boxShader.setFloat("pointLights[3].linear", 0.09f);
+		boxShader.setFloat("pointLights[3].quadratic", 0.032f);
+		// spotLight
+		boxShader.setVec3("spotLight.position", camera.Position);
+		boxShader.setVec3("spotLight.direction", camera.Front);
+		boxShader.setVec3("spotLight.ambient", 0.0f, 0.0f, 0.0f);
+		boxShader.setVec3("spotLight.diffuse", 1.0f, 1.0f, 1.0f);
+		boxShader.setVec3("spotLight.specular", 1.0f, 1.0f, 1.0f);
+		boxShader.setFloat("spotLight.constant", 1.0f);
+		boxShader.setFloat("spotLight.linear", 0.09f);
+		boxShader.setFloat("spotLight.quadratic", 0.032f);
+		boxShader.setFloat("spotLight.cutOff", glm::cos(glm::radians(12.5f)));
+		boxShader.setFloat("spotLight.outerCutOff", glm::cos(glm::radians(15.0f)));//*/
+
+		// using texture
+		boxShader.setInt("material.diffuse", 0);
+		glActiveTexture(GL_TEXTURE0);
+		glBindTexture(GL_TEXTURE_2D, diffuseMap);
+		boxShader.setInt("material.specular", 1);
+		glActiveTexture(GL_TEXTURE1);
+		glBindTexture(GL_TEXTURE_2D, specularMap);
+		// cast texture (FlashLight)
+		boxShader.setInt("material.castMap", 2);
+		glActiveTexture(GL_TEXTURE2);
+		glBindTexture(GL_TEXTURE_2D, awesomeface);
 
 		projection = glm::perspective(glm::radians(camera.Zoom), 1.0f * screenWidth / screenHeight, 0.1f, 100.0f);
 		view = camera.GetViewMatrix();
@@ -363,13 +445,22 @@ int main(int argc, char* argv[])
 		//lightShader.setMat4("view", view);
 		//lightShader.setMat4("model", model_light);
 		
-		updateMVP4Shader(lightShader, model_light, view, projection);
-		drawBox(vao_light, lightShader, 36);
+		//updateMVP4Shader(lightShader, model_light, view, projection);
+		//drawBox(vao_light, lightShader, 36);
 
 		//glBindVertexArray(vao_light);
 		//glDrawArrays(GL_TRIANGLES, 0, 36);
 
+		// draw 4 point lights
+		for (unsigned i = 0; i < 4; i++)
+		{
+			model_light = glm::mat4(1.0f);
+			model_light = glm::translate(model_light, pointLightPositions[i]);
+			model_light = glm::scale(model_light, glm::vec3(0.05f));
 
+			updateMVP4Shader(lightShader, model_light, view, projection);
+			drawBox(vao_light, lightShader, 36);
+		}
 
 
 		glfwSwapBuffers(window);

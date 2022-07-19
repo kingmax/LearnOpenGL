@@ -108,6 +108,7 @@ float specularStrength = 0.5;
 void main()
 {
 	vec4 diffuseMap = texture(material.diffuse, UV);
+
 	// ambient
 	vec3 ambient = light.ambient * vec3(diffuseMap);
 
@@ -137,8 +138,15 @@ void main()
 	/*ambient *= attenuation;
 	diffuse *= attenuation;
 	specular *= attenuation;*/
+
+	// spotLight soft edges
 	diffuse *= intensity;
 	specular *= intensity;
+
+	ambient *= attenuation;
+	diffuse *= attenuation;
+	specular *= attenuation;
+
 	vec3 result = ambient + diffuse + specular;
 
 	/*if(theta > light.cutOff)

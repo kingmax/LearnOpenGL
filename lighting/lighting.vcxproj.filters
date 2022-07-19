@@ -64,5 +64,8 @@
     <None Include="light.vert">
       <Filter>shader</Filter>
     </None>
+    <None Include="mLightingBox.frag">
+      <Filter>shader</Filter>
+    </None>
   </ItemGroup>
 </Project>
