@@ -168,6 +168,7 @@ const unsigned screenHeight = 600;
 // camera
 //Camera camera(glm::vec3(0.0f, 0.0f, 6.0f));
 Camera camera(glm::vec3(-4.5f, 1.8f, 3.5f), glm::vec3(0, 1, 0), -30.0f, -10.0f);
+//Camera camera(glm::vec3(0.0f, 0.0f, 3.0f));
 float lastX = screenWidth / 2.0f;
 float lastY = screenHeight / 2.0f;
 bool firstMouse = true;
@@ -178,6 +179,7 @@ float lastFrame = 0.0f;
 
 // lighting
 glm::vec3 lightPos(0.9f, -0.2f, 1.2f);
+//glm::vec3 lightPos(1.2f, 1.0f, 2.0f);
 
 glm::vec3 objectColor = glm::vec3(1.0f, 0.5f, 0.31f);
 glm::vec3 lightColor = glm::vec3(1.0f, 1.0f, 1.0f);
@@ -297,6 +299,12 @@ int main(int argc, char* argv[])
 		boxShader.setVec3("light.diffuse", 0.5f, 0.5f, 0.5f);*/
 		//boxShader.setVec3("light.specular", 1.0f, 1.0f, 1.0f);
 		//boxShader.setVec3("light.position", lightPos);
+		
+		// with light attenuation, ref: https://wiki.ogre3d.org/tiki-index.php?page=-Point+Light+Attenuation
+		// light range dist = 100M
+		boxShader.setFloat("light.constant", 1.0f);
+		boxShader.setFloat("light.linear", 0.045f);
+		boxShader.setFloat("light.quadratic", 0.0075f);
 
 		// change light color with time
 		/*lightColor.x = sin(glfwGetTime() * 2.0f);
@@ -313,7 +321,13 @@ int main(int argc, char* argv[])
 		boxShader.setVec3("light.specular", 1.0f, 1.0f, 1.0f);
 
 		// set direction light direction
-		boxShader.setVec3("light.direction", -0.2f, -1.0f, -0.3f);
+		//boxShader.setVec3("light.direction", -0.2f, -1.0f, -0.3f);
+
+		// Flash Light
+		boxShader.setVec3("light.position", camera.Position);
+		boxShader.setVec3("light.direction", camera.Front);
+		boxShader.setFloat("light.cutOff", glm::cos(glm::radians(12.5f)));
+		boxShader.setFloat("light.outerCutOff", glm::cos(glm::radians(15.5f)));
 
 		//updateMVP4Shader(boxLightingShader, model, view, projection);
 		//drawBox(vao_box, boxLightingShader, 180);
@@ -330,15 +344,17 @@ int main(int argc, char* argv[])
 		//glDrawArrays(GL_TRIANGLES, 0, 36);
 		drawBox(vao_box, boxShader, 36);
 
+		drawBox10(vao_box, boxShader, 36);
+
 		// draw 10 box
-		for (unsigned i = 0; i < 10; i++)
+		/*for (unsigned i = 0; i < 10; i++)
 		{
 			model = glm::translate(model, cubePositions[i]);
 			float angle = 20.0f * i;
 			model = glm::rotate(model, glm::radians(angle), glm::vec3(1.0f, 0.3f, 0.5f));
 			updateMVP4Shader(boxShader, model, view, projection);
 			drawBox(vao_box, boxShader, 36);
-		}
+		}*/
 
 
 		// draw light object (same as box)
