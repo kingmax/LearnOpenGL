@@ -149,6 +149,20 @@ float vertices[] = {
 	-0.5f,  0.5f, -0.5f,  0.0f,  1.0f,  0.0f,  0.0f, 1.0f
 };
 
+// direction light position
+glm::vec3 cubePositions[] = {
+	glm::vec3(0.0f,  0.0f,  0.0f),
+	glm::vec3(2.0f,  5.0f, -15.0f),
+	glm::vec3(-1.5f, -2.2f, -2.5f),
+	glm::vec3(-3.8f, -2.0f, -12.3f),
+	glm::vec3(2.4f, -0.4f, -3.5f),
+	glm::vec3(-1.7f,  3.0f, -7.5f),
+	glm::vec3(1.3f, -2.0f, -2.5f),
+	glm::vec3(1.5f,  2.0f, -2.5f),
+	glm::vec3(1.5f,  0.2f, -1.5f),
+	glm::vec3(-1.3f,  1.0f, -1.5f)
+};
+
 const unsigned screenWidth = 800;
 const unsigned screenHeight = 600;
 // camera
@@ -213,6 +227,13 @@ int main(int argc, char* argv[])
 
 	unsigned diffuseMap = loadTexture("container2.jpg");
 	unsigned specularMap = loadTexture("container2_specular.jpg");
+	// using texture
+	boxShader.setInt("material.diffuse", 0);
+	glActiveTexture(GL_TEXTURE0);
+	glBindTexture(GL_TEXTURE_2D, diffuseMap);
+	boxShader.setInt("material.specular", 1);
+	glActiveTexture(GL_TEXTURE1);
+	glBindTexture(GL_TEXTURE_2D, specularMap);
 
 	unsigned int VBO, vao_box, vao_light;
 	glGenVertexArrays(1, &vao_box);
@@ -274,23 +295,25 @@ int main(int argc, char* argv[])
 		boxShader.setFloat("material.shininess", 32.0f);
 		/*boxShader.setVec3("light.ambient", 0.2f, 0.2f, 0.2f);
 		boxShader.setVec3("light.diffuse", 0.5f, 0.5f, 0.5f);*/
-		boxShader.setVec3("light.specular", 1.0f, 1.0f, 1.0f);
-		boxShader.setVec3("light.position", lightPos);
-		// change light color
-		lightColor.x = sin(glfwGetTime() * 2.0f);
+		//boxShader.setVec3("light.specular", 1.0f, 1.0f, 1.0f);
+		//boxShader.setVec3("light.position", lightPos);
+
+		// change light color with time
+		/*lightColor.x = sin(glfwGetTime() * 2.0f);
 		lightColor.y = sin(glfwGetTime() * 0.7f);
 		lightColor.z = sin(glfwGetTime() * 1.3f);
 		glm::vec3 diffuseColor = lightColor * glm::vec3(0.5f);
 		glm::vec3 ambientColor = diffuseColor * glm::vec3(0.2f);
 		boxShader.setVec3("light.ambient", ambientColor);
-		boxShader.setVec3("light.diffuse", diffuseColor);
-		// using texture
-		boxShader.setInt("material.diffuse", 0);
-		glActiveTexture(GL_TEXTURE0);
-		glBindTexture(GL_TEXTURE_2D, diffuseMap);
-		boxShader.setInt("material.specular", 1);
-		glActiveTexture(GL_TEXTURE1);
-		glBindTexture(GL_TEXTURE_2D, specularMap);
+		boxShader.setVec3("light.diffuse", diffuseColor);*/
+
+		// light properties
+		boxShader.setVec3("light.ambient", 0.2f, 0.2f, 0.2f);
+		boxShader.setVec3("light.diffuse", 0.5f, 0.5f, 0.5f);
+		boxShader.setVec3("light.specular", 1.0f, 1.0f, 1.0f);
+
+		// set direction light direction
+		boxShader.setVec3("light.direction", -0.2f, -1.0f, -0.3f);
 
 		//updateMVP4Shader(boxLightingShader, model, view, projection);
 		//drawBox(vao_box, boxLightingShader, 180);
@@ -307,13 +330,26 @@ int main(int argc, char* argv[])
 		//glDrawArrays(GL_TRIANGLES, 0, 36);
 		drawBox(vao_box, boxShader, 36);
 
-		
+		// draw 10 box
+		for (unsigned i = 0; i < 10; i++)
+		{
+			model = glm::translate(model, cubePositions[i]);
+			float angle = 20.0f * i;
+			model = glm::rotate(model, glm::radians(angle), glm::vec3(1.0f, 0.3f, 0.5f));
+			updateMVP4Shader(boxShader, model, view, projection);
+			drawBox(vao_box, boxShader, 36);
+		}
+
+
+		// draw light object (same as box)
 		lightShader.use();
 		//lightShader.setMat4("projection", projection);
 		//lightShader.setMat4("view", view);
 		//lightShader.setMat4("model", model_light);
+		
 		updateMVP4Shader(lightShader, model_light, view, projection);
 		drawBox(vao_light, lightShader, 36);
+
 		//glBindVertexArray(vao_light);
 		//glDrawArrays(GL_TRIANGLES, 0, 36);
 
