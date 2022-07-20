@@ -7,12 +7,16 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "myOpenGL", "myOpenGL.vcxpro
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "lighting", "..\lighting\lighting.vcxproj", "{2838F52A-75FE-41EA-8A6A-1A9231BE8FF5}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "loadModel", "..\loadModel\loadModel.vcxproj", "{92140A0D-F441-4CE1-B149-8533178D9B9E}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x64 = Debug|x64
 		Debug|x86 = Debug|x86
 		lighting_d_r|x64 = lighting_d_r|x64
 		lighting_d_r|x86 = lighting_d_r|x86
+		loadModel_d_r|x64 = loadModel_d_r|x64
+		loadModel_d_r|x86 = loadModel_d_r|x86
 		myOpenGL_d_r|x64 = myOpenGL_d_r|x64
 		myOpenGL_d_r|x86 = myOpenGL_d_r|x86
 		Release|x64 = Release|x64
@@ -27,6 +31,10 @@ Global
 		{7BD3185F-02E2-4BA7-85E7-9DA0D9BB0B30}.lighting_d_r|x64.Build.0 = lighting_d_r|x64
 		{7BD3185F-02E2-4BA7-85E7-9DA0D9BB0B30}.lighting_d_r|x86.ActiveCfg = lighting_d_r|Win32
 		{7BD3185F-02E2-4BA7-85E7-9DA0D9BB0B30}.lighting_d_r|x86.Build.0 = lighting_d_r|Win32
+		{7BD3185F-02E2-4BA7-85E7-9DA0D9BB0B30}.loadModel_d_r|x64.ActiveCfg = myOpenGL_d_r|x64
+		{7BD3185F-02E2-4BA7-85E7-9DA0D9BB0B30}.loadModel_d_r|x64.Build.0 = myOpenGL_d_r|x64
+		{7BD3185F-02E2-4BA7-85E7-9DA0D9BB0B30}.loadModel_d_r|x86.ActiveCfg = loadModel_d_r|Win32
+		{7BD3185F-02E2-4BA7-85E7-9DA0D9BB0B30}.loadModel_d_r|x86.Build.0 = loadModel_d_r|Win32
 		{7BD3185F-02E2-4BA7-85E7-9DA0D9BB0B30}.myOpenGL_d_r|x64.ActiveCfg = myOpenGL_d_r|x64
 		{7BD3185F-02E2-4BA7-85E7-9DA0D9BB0B30}.myOpenGL_d_r|x64.Build.0 = myOpenGL_d_r|x64
 		{7BD3185F-02E2-4BA7-85E7-9DA0D9BB0B30}.myOpenGL_d_r|x86.ActiveCfg = myOpenGL_d_r|Win32
@@ -43,6 +51,10 @@ Global
 		{2838F52A-75FE-41EA-8A6A-1A9231BE8FF5}.lighting_d_r|x64.Build.0 = lighting_d_r|x64
 		{2838F52A-75FE-41EA-8A6A-1A9231BE8FF5}.lighting_d_r|x86.ActiveCfg = lighting_d_r|Win32
 		{2838F52A-75FE-41EA-8A6A-1A9231BE8FF5}.lighting_d_r|x86.Build.0 = lighting_d_r|Win32
+		{2838F52A-75FE-41EA-8A6A-1A9231BE8FF5}.loadModel_d_r|x64.ActiveCfg = lighting_d_r|x64
+		{2838F52A-75FE-41EA-8A6A-1A9231BE8FF5}.loadModel_d_r|x64.Build.0 = lighting_d_r|x64
+		{2838F52A-75FE-41EA-8A6A-1A9231BE8FF5}.loadModel_d_r|x86.ActiveCfg = loadModel_d_r|Win32
+		{2838F52A-75FE-41EA-8A6A-1A9231BE8FF5}.loadModel_d_r|x86.Build.0 = loadModel_d_r|Win32
 		{2838F52A-75FE-41EA-8A6A-1A9231BE8FF5}.myOpenGL_d_r|x64.ActiveCfg = lighting_d_r|x64
 		{2838F52A-75FE-41EA-8A6A-1A9231BE8FF5}.myOpenGL_d_r|x64.Build.0 = lighting_d_r|x64
 		{2838F52A-75FE-41EA-8A6A-1A9231BE8FF5}.myOpenGL_d_r|x86.ActiveCfg = Debug|Win32
@@ -51,6 +63,26 @@ Global
 		{2838F52A-75FE-41EA-8A6A-1A9231BE8FF5}.Release|x64.Build.0 = lighting_d_r|x64
 		{2838F52A-75FE-41EA-8A6A-1A9231BE8FF5}.Release|x86.ActiveCfg = Release|Win32
 		{2838F52A-75FE-41EA-8A6A-1A9231BE8FF5}.Release|x86.Build.0 = Release|Win32
+		{92140A0D-F441-4CE1-B149-8533178D9B9E}.Debug|x64.ActiveCfg = loadModel_d_r|x64
+		{92140A0D-F441-4CE1-B149-8533178D9B9E}.Debug|x64.Build.0 = loadModel_d_r|x64
+		{92140A0D-F441-4CE1-B149-8533178D9B9E}.Debug|x86.ActiveCfg = Debug|Win32
+		{92140A0D-F441-4CE1-B149-8533178D9B9E}.Debug|x86.Build.0 = Debug|Win32
+		{92140A0D-F441-4CE1-B149-8533178D9B9E}.lighting_d_r|x64.ActiveCfg = Debug|x64
+		{92140A0D-F441-4CE1-B149-8533178D9B9E}.lighting_d_r|x64.Build.0 = Debug|x64
+		{92140A0D-F441-4CE1-B149-8533178D9B9E}.lighting_d_r|x86.ActiveCfg = Debug|Win32
+		{92140A0D-F441-4CE1-B149-8533178D9B9E}.lighting_d_r|x86.Build.0 = Debug|Win32
+		{92140A0D-F441-4CE1-B149-8533178D9B9E}.loadModel_d_r|x64.ActiveCfg = loadModel_d_r|x64
+		{92140A0D-F441-4CE1-B149-8533178D9B9E}.loadModel_d_r|x64.Build.0 = loadModel_d_r|x64
+		{92140A0D-F441-4CE1-B149-8533178D9B9E}.loadModel_d_r|x86.ActiveCfg = loadModel_d_r|Win32
+		{92140A0D-F441-4CE1-B149-8533178D9B9E}.loadModel_d_r|x86.Build.0 = loadModel_d_r|Win32
+		{92140A0D-F441-4CE1-B149-8533178D9B9E}.myOpenGL_d_r|x64.ActiveCfg = Debug|x64
+		{92140A0D-F441-4CE1-B149-8533178D9B9E}.myOpenGL_d_r|x64.Build.0 = Debug|x64
+		{92140A0D-F441-4CE1-B149-8533178D9B9E}.myOpenGL_d_r|x86.ActiveCfg = Debug|Win32
+		{92140A0D-F441-4CE1-B149-8533178D9B9E}.myOpenGL_d_r|x86.Build.0 = Debug|Win32
+		{92140A0D-F441-4CE1-B149-8533178D9B9E}.Release|x64.ActiveCfg = loadModel_d_r|x64
+		{92140A0D-F441-4CE1-B149-8533178D9B9E}.Release|x64.Build.0 = loadModel_d_r|x64
+		{92140A0D-F441-4CE1-B149-8533178D9B9E}.Release|x86.ActiveCfg = Release|Win32
+		{92140A0D-F441-4CE1-B149-8533178D9B9E}.Release|x86.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
