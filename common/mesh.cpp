@@ -6,18 +6,6 @@
 #include <string>
 using namespace std;
 
-struct Vertex
-{
-	glm::vec3 Position;
-	glm::vec3 Normal;
-	glm::vec2 UV;
-};
-
-struct Texture
-{
-	unsigned int id;
-	string type;
-};
 
 Mesh::Mesh(vector<Vertex> vertices, vector<unsigned int> indices, vector<Texture> textures)
 {

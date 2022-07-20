@@ -3,8 +3,19 @@
 #include <vector>
 #include "shaderClass.h"
 
-struct Vertex;
-struct Texture;
+struct Vertex
+{
+	glm::vec3 Position;
+	glm::vec3 Normal;
+	glm::vec2 UV;
+};
+
+struct Texture
+{
+	unsigned int id;
+	string type;
+	string path;
+};
 
 class Mesh
 {
