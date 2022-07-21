@@ -13,6 +13,7 @@ class Model
 public:
 	Model(std::string path);
 	void Draw(Shader shader);
+	void ShowInfo4Debug() const;
 protected:
 private:
 	vector<Texture> textures_loaded;

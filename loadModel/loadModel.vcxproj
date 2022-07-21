@@ -217,6 +217,10 @@
     <ClInclude Include="..\common\util.h" />
     <ClInclude Include="..\Include\stb_image.h" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="model.frag" />
+    <None Include="model.vert" />
+  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>

@@ -7,14 +7,39 @@ Model::Model(std::string path)
 
 void Model::Draw(Shader shader)
 {
-	for (auto &mesh : meshes)
+	for (auto& mesh : meshes)
 	{
 		mesh.Draw(shader);
 	}
 }
 
+void Model::ShowInfo4Debug() const
+{
+	cout << "Mesh:" << endl;
+	for (const auto& mesh : meshes)
+	{
+		cout << "\tvertices: " << mesh.vertices.size() << endl;
+		cout << "\tindices:  " << mesh.indices.size() << endl;
+		cout << "\ttextures: " << mesh.textures.size() << endl;
+		for (const auto& tex : mesh.textures)
+		{
+			cout << "\t\t" << tex.id << "|" << tex.type << "|" << tex.path << endl;
+		}
+	}
+
+	cout << "loaded textures: " << textures_loaded.size() << endl;
+	for (const auto& tex : textures_loaded)
+	{
+		cout << tex.path << endl;
+	}
+	cout << endl;
+}
+
 void Model::loadModel(string path)
 {
+	directory = path.substr(0, path.find_last_of("/"));
+	cout << "directory = " << directory << endl;
+
 	Assimp::Importer importer;
 	const aiScene* scene = importer.ReadFile(path, aiProcess_Triangulate | aiProcess_FlipUVs);
 	
@@ -23,8 +48,6 @@ void Model::loadModel(string path)
 		cout << "ERROR::ASSIMP::" << importer.GetErrorString() << endl;
 		return;
 	}
-
-	directory = path.substr(0, path.find_last_not_of("/"));
 
 	processNode(scene->mRootNode, scene);
 }
