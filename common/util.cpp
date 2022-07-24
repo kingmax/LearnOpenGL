@@ -29,8 +29,6 @@ void processInput(GLFWwindow* win)
 	//cout << "cam Pos:[" << camera.Position.x << "," << camera.Position.y << "," << camera.Position.z << "] Yaw:" << camera.Yaw << ", Pitch:" << camera.Pitch << endl;
 }
 
-// glfw: whenever the mouse moves, this callback is called
-// -------------------------------------------------------
 void mouse_callback(GLFWwindow* window, double xposIn, double yposIn)
 {
 	float xpos = static_cast<float>(xposIn);
@@ -52,8 +50,6 @@ void mouse_callback(GLFWwindow* window, double xposIn, double yposIn)
 	camera.ProcessMouseMovement(xoffset, yoffset);
 }
 
-// glfw: whenever the mouse scroll wheel scrolls, this callback is called
-// ----------------------------------------------------------------------
 void scroll_callback(GLFWwindow* window, double xoffset, double yoffset)
 {
 	camera.ProcessMouseScroll(static_cast<float>(yoffset));
@@ -70,12 +66,14 @@ void init(GLFWwindow* &win, const char* title/* = u8"学习OpenGL"*/, const int sc
 	glfwWindowHint(GLFW_TRANSPARENT_FRAMEBUFFER, GL_TRUE);
 	// 无边框
 	//glfwWindowHint(GLFW_DECORATED, GL_FALSE);
+	// wireframe mode
+	//glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
 
 	//win = glfwCreateWindow(screenWidth, screenHeight, u8"学习OpenGL", NULL, NULL);
 	win = glfwCreateWindow(screenWidth, screenHeight, title, NULL, NULL);
-	if (win == NULL)
+	if (!win)
 	{
-		cout << "创建 GLFW Window 失败" << endl;
+		cerr << "创建 GLFW Window 失败" << endl;
 		glfwTerminate();
 		return;
 	}
@@ -92,7 +90,7 @@ void init(GLFWwindow* &win, const char* title/* = u8"学习OpenGL"*/, const int sc
 
 	if (!gladLoadGLLoader((GLADloadproc)glfwGetProcAddress))
 	{
-		cout << "GLAD初始化失败" << endl;
+		cerr << "GLAD初始化失败" << endl;
 		return;
 	}
 

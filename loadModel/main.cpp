@@ -13,7 +13,7 @@ using namespace std;
 const unsigned screenWidth = 800;
 const unsigned screenHeight = 600;
 // camera
-Camera camera(glm::vec3(0.0f, 0.0f, 3.0f));
+Camera camera(glm::vec3(0.0f, 0.0f, 8.0f));
 float lastX = screenWidth / 2.0f;
 float lastY = screenHeight / 2.0f;
 bool isFirstMouse = true;
@@ -32,16 +32,17 @@ int main(int argc, char* argv[])
 	GLFWwindow* win;
 	init(win, u8"学习OpenGL_LoadModel", screenWidth, screenHeight);	
 
+	Shader modelShader("model.vert", "model.frag");
+	modelShader.use();
+
 	// 注意: 目录与文件名之间分隔符必须是"/", 因为：directory = path.substr(0, path.find_last_of("/"));
 	//string path = R"(E:\git\learnOpenGL\loadModel\nanosuit/nanosuit.obj)";
 	//string path = R"(E:\fbx\Textures/NPC_6.fbx)";
-	//string path = R"(E:\fbx/Meshs/textureAtlas.fbx)";
-	string path = R"(E:\fbx/Meshs/textureAtlas.obj)";
+	string path = R"(E:/fbx/Meshs/textureAtlas.fbx)";
+	//string path = R"(E:/fbx/Meshs/textureAtlas.obj)";
 	Model theModel(path);
 	theModel.ShowInfo4Debug();
 
-	Shader modelShader("model.vert", "model.frag");
-	
 	glm::mat4 model;
 	glm::mat4 view;
 	glm::mat4 projection;
@@ -49,6 +50,12 @@ int main(int argc, char* argv[])
 
 	while (!glfwWindowShouldClose(win))
 	{
+		// per-frame time logic
+		// --------------------
+		float currentFrame = static_cast<float>(glfwGetTime());
+		deltaTime = currentFrame - lastFrame;
+		lastFrame = currentFrame;
+
 		processInput(win);
 
 		// rendering..
@@ -58,7 +65,7 @@ int main(int argc, char* argv[])
 
 		projection = glm::perspective(glm::radians(camera.Zoom), 1.0f * screenWidth / screenHeight, 0.1f, 100.0f);
 		view = camera.GetViewMatrix();
-		model = glm::mat4(1.0f);
+		model = glm::mat4(100.0f);
 		updateMVP4Shader(modelShader, model, view, projection);
 
 		// draw model

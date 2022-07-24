@@ -29,6 +29,7 @@
 //// timing
 //float deltaTime = 0.0f;
 //float lastFrame = 0.0f;
+
 extern Camera camera;
 extern float lastX;
 extern float lastY;
