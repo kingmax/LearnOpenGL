@@ -66,8 +66,6 @@ void init(GLFWwindow* &win, const char* title/* = u8"学习OpenGL"*/, const int sc
 	glfwWindowHint(GLFW_TRANSPARENT_FRAMEBUFFER, GL_TRUE);
 	// 无边框
 	//glfwWindowHint(GLFW_DECORATED, GL_FALSE);
-	// wireframe mode
-	//glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
 
 	//win = glfwCreateWindow(screenWidth, screenHeight, u8"学习OpenGL", NULL, NULL);
 	win = glfwCreateWindow(screenWidth, screenHeight, title, NULL, NULL);
@@ -78,8 +76,6 @@ void init(GLFWwindow* &win, const char* title/* = u8"学习OpenGL"*/, const int sc
 		return;
 	}
 	glfwMakeContextCurrent(win);
-	// tell GLFW to capture our mouse
-	glfwSetInputMode(win, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
 
 	//glViewport(0, 0, screenWidth, screenHeight);
 	glfwSetFramebufferSizeCallback(win, framebuffer_size_callback);
@@ -88,6 +84,9 @@ void init(GLFWwindow* &win, const char* title/* = u8"学习OpenGL"*/, const int sc
 	// mouse scroll handle camera fov
 	glfwSetScrollCallback(win, scroll_callback);
 
+	// tell GLFW to capture our mouse
+	glfwSetInputMode(win, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
+
 	if (!gladLoadGLLoader((GLADloadproc)glfwGetProcAddress))
 	{
 		cerr << "GLAD初始化失败" << endl;
@@ -95,6 +94,9 @@ void init(GLFWwindow* &win, const char* title/* = u8"学习OpenGL"*/, const int sc
 	}
 
 	glEnable(GL_DEPTH_TEST);
+
+	// wireframe mode
+	//glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
 }
 
 void printMaxVASupport()

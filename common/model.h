@@ -11,17 +11,19 @@
 class Model
 {
 public:
-	Model(std::string path);
-	void Draw(Shader shader);
-	void ShowInfo4Debug() const;
-protected:
-private:
 	vector<Texture> textures_loaded;
-
 	vector<Mesh> meshes;
 	std::string directory;
+	bool gammaCorrection;
 
-	void loadModel(string path);
+	Model(const std::string &path, bool gamma = false);
+	void Draw(Shader &shader);
+
+	void ShowInfo4Debug() const;
+
+protected:
+private:
+	void loadModel(const string &path);
 	void processNode(aiNode* node, const aiScene* scene);
 	Mesh processMesh(aiMesh* mesh, const aiScene* scene);
 	vector<Texture> loadMaterialTextures(aiMaterial* mat, aiTextureType type, string typeName);

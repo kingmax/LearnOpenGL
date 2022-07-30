@@ -34,7 +34,10 @@ void Mesh::Draw(Shader shader)
 			number = to_string(specularN++);
 		}
 
+		string uniform_v = textureType + number;
+		//cout << "In Mesh::Draw, Shader Set uniform: " + uniform_v << endl;
 		shader.setInt("material." + textureType + number, i);
+		shader.setInt(uniform_v, i);
 		glBindTexture(GL_TEXTURE_2D, textures[i].id);
 	}
 

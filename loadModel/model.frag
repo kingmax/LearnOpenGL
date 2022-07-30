@@ -11,10 +11,11 @@ struct Material {
 
 uniform Material material;
 
-//uniform sampler2D tex_diffuse1;
+uniform sampler2D tex_diffuse1;
 
 
 void main()
 {
-	color = texture(material.tex_diffuse1, UV);
+	//color = texture(material.tex_diffuse1, UV);
+	color = texture(tex_diffuse1, UV);
 }

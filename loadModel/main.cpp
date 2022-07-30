@@ -30,16 +30,21 @@ int main(int argc, char* argv[])
 	}*/
 
 	GLFWwindow* win;
-	init(win, u8"学习OpenGL_LoadModel", screenWidth, screenHeight);	
+	init(win, u8"学习OpenGL_LoadModel", screenWidth, screenHeight, 3, 3);
+
+	stbi_set_flip_vertically_on_load(true);
+	//glEnable(GL_DEPTH_TEST);
 
 	Shader modelShader("model.vert", "model.frag");
-	modelShader.use();
+	//modelShader.use();
 
 	// 注意: 目录与文件名之间分隔符必须是"/", 因为：directory = path.substr(0, path.find_last_of("/"));
 	//string path = R"(E:\git\learnOpenGL\loadModel\nanosuit/nanosuit.obj)";
 	//string path = R"(E:\fbx\Textures/NPC_6.fbx)";
 	string path = R"(E:/fbx/Meshs/textureAtlas.fbx)";
 	//string path = R"(E:/fbx/Meshs/textureAtlas.obj)";
+	//string path = R"(E:/fbx/Meshs/cube.fbx)";
+	//string path = R"(E:/fbx/Meshs/cube.obj)";
 	Model theModel(path);
 	theModel.ShowInfo4Debug();
 
@@ -50,6 +55,17 @@ int main(int argc, char* argv[])
 
 	while (!glfwWindowShouldClose(win))
 	{
+		// switch wireframe mode
+		if (glfwGetKey(win, GLFW_KEY_1) == GLFW_PRESS)
+		{
+			glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
+		}
+		else if (glfwGetKey(win, GLFW_KEY_2) == GLFW_PRESS)
+		{
+			//cout << "pressed 2" << endl;
+			glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
+		}
+
 		// per-frame time logic
 		// --------------------
 		float currentFrame = static_cast<float>(glfwGetTime());
@@ -61,11 +77,14 @@ int main(int argc, char* argv[])
 		// rendering..
 		glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-		glEnable(GL_DEPTH_TEST);
+		
+		modelShader.use();
 
 		projection = glm::perspective(glm::radians(camera.Zoom), 1.0f * screenWidth / screenHeight, 0.1f, 100.0f);
 		view = camera.GetViewMatrix();
-		model = glm::mat4(100.0f);
+		model = glm::mat4(1.0f);
+		model = glm::translate(model, glm::vec3(0.0f, 0.0f, 0.0f)); // translate it down so it's at the center of the scene
+		model = glm::scale(model, glm::vec3(0.5f, 0.5f, 0.5f)); // it's a bit too big for our scene, so scale it down
 		updateMVP4Shader(modelShader, model, view, projection);
 
 		// draw model

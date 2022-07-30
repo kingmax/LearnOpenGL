@@ -1,16 +1,20 @@
 #include "model.h"
 
-Model::Model(std::string path)
+Model::Model(const std::string& path, bool gamma/* = false*/)
 {
 	loadModel(path);
 }
 
-void Model::Draw(Shader shader)
+void Model::Draw(Shader &shader)
 {
 	for (auto& mesh : meshes)
 	{
 		mesh.Draw(shader);
 	}
+	/*for (unsigned int i=0; i<meshes.size(); i++)
+	{
+		meshes[i].Draw(shader);
+	}*/
 }
 
 void Model::ShowInfo4Debug() const
@@ -35,7 +39,7 @@ void Model::ShowInfo4Debug() const
 	cout << endl;
 }
 
-void Model::loadModel(string path)
+void Model::loadModel(const string &path)
 {
 	directory = path.substr(0, path.find_last_of("/"));
 	cout << "directory = " << directory << endl;
